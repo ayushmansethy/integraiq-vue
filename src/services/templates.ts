@@ -1,0 +1,3 @@
+import type {Api,Template} from '../types'
+import {operationIds} from './openapi'
+export function tddMarkdown(api:Api,tpl:Template){const ids=operationIds(api);const vars:Record<string,string>={'api.name':api.name,'api.version':api.version,'api.description':api.desc||'[TBD: description]','api.backend':api.backend,'api.suffix':api.suffix,'api.team':api.team,'api.auth':api.auth==='oauth'?'OAuth 2.0 JWT bearer':'Ocp-Apim-Subscription-Key','api.operations':api.ops.map((o,i)=>`- ${o[0]} ${o[1]} — ${o[2]} (operationId: ${ids[i]})`).join('\n')};return tpl.content.replace(/\{\{\s*([\w.]+)\s*\}\}/g,(all,key:string)=>vars[key]??`[TBD: ${key}]`)}

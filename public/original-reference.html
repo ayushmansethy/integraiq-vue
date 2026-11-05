@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IntegraIQ – Intelligent Integration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f6f5;--card:#fff;--tx:#161a2b;--mu:#5f6577;--bd:#e0e8e5;--ac:#0b8a5f;--ac2:#14b88a;--ok:#16794c;--okb:#e3f6ec;--wn:#8a5200;--wnb:#fff3dc;--er:#c0262d;--erb:#fde8e8;--in:#1d4ed8;--inb:#e6eefc;--cd:#08162b;--cdt:#d7dcff;--navy:#0b1f3a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1628;--card:#10243f;--tx:#e8eaff;--mu:#9fb0cc;--bd:#1f3a5c;--ac:#34d399;--ac2:#2dd4bf;--ok:#5fd9a0;--okb:#0f3a2c;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--in:#93b4ff;--inb:#132a52}:root:not([data-theme="light"]) .btn:not(.ghost){color:#04261b}}
+:root[data-theme="dark"]{--bg:#0a1628;--card:#10243f;--tx:#e8eaff;--mu:#9fb0cc;--bd:#1f3a5c;--ac:#34d399;--ac2:#2dd4bf;--ok:#5fd9a0;--okb:#0f3a2c;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--in:#93b4ff;--inb:#132a52}
+:root[data-theme="dark"] .btn:not(.ghost){color:#04261b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.005em}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.shell{display:flex;align-items:stretch;min-height:100vh}
+
+/* sidebar */
+aside{width:250px;flex:none;background:var(--navy);color:#cfd9ea}
+.side-in{position:sticky;top:env(safe-area-inset-top,0px);padding:22px 14px}
+.logo{font-weight:700;display:flex;gap:10px;align-items:center;padding:0 8px 20px;font-size:15px;line-height:1.25;color:#fff}
+.logo i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#0b8a5f,#14b88a);display:grid;place-items:center;color:#fff;font-style:normal;font-size:15px}
+nav{display:flex;flex-direction:column;gap:6px}
+nav button{display:flex;align-items:center;gap:14px;text-align:left;border:0;background:none;color:#9fb0cc;padding:12px 16px;border-radius:12px;font:inherit;font-size:15px;cursor:pointer;font-weight:500;transition:background .15s}
+nav button:hover{background:rgba(255,255,255,.07)}
+nav button .ic{width:20px;text-align:center;font-size:17px}
+nav button.on{background:rgba(52,211,153,.14);color:#34d399;box-shadow:inset 3px 0 0 #34d399}
+.side-git{margin:20px 8px 0;padding:12px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.g-t{display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:12.5px;font-weight:700;margin-bottom:8px}
+.g-ok{font-style:normal;font-size:10.5px;font-weight:700;color:#ffc15e;background:rgba(255,193,94,.15);padding:2px 8px;border-radius:99px}
+.side-git input{width:100%;margin-bottom:6px;padding:7px 9px;font-size:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:8px}
+.g-err{color:#fca5a5;font-size:11.5px;min-height:0}
+.g-open{display:inline-block;color:#34d399;font-size:12.5px;font-weight:600;text-decoration:none;margin-top:2px}.g-open:hover{text-decoration:underline}
+.g-f{display:flex;align-items:center;gap:6px;width:calc(100% + 8px);padding:6px 8px;margin:0 -4px;border:0;background:none;border-radius:8px;color:#cfd9ea;font:inherit;font-size:11.5px;cursor:pointer;text-align:left}.g-f:hover{background:rgba(255,255,255,.08)}
+.g-f span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.g-f code{color:#34d399;font-size:11px}
+.g-e{color:#9fb0cc;font-size:12px;line-height:1.45}
+.side-foot{margin:22px 8px 0;padding:12px;border-radius:12px;background:rgba(255,255,255,.06);color:#9fb0cc;font-size:12.5px;line-height:1.45}
+.side-foot b{color:#fff;display:block;margin-bottom:2px;font-size:13px}
+.sf-btns{display:grid;gap:6px;margin-top:10px}
+.sf-b{font:inherit;font-size:12.5px;font-weight:600;padding:7px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;text-align:left}.sf-b:hover{background:rgba(255,255,255,.12)}
+
+/* layout */
+main{flex:1;min-width:0;max-width:1120px;margin:0 auto;padding:28px 28px 60px}
+body.touring main{padding-bottom:220px}
+h1{font-size:24px;margin:0 0 4px;letter-spacing:-.02em;font-weight:750}h2{font-size:17px;margin:0 0 12px}h3{font-size:16px;margin:0 0 8px}
+p.sub{color:var(--mu);margin:0 0 20px}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.banner{background:var(--wnb);color:var(--wn);border:1px solid color-mix(in srgb,var(--wn) 30%,transparent);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:20px}
+.banner .lnk{color:inherit;text-decoration:underline}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 2px rgba(20,24,60,.04),0 4px 14px rgba(20,24,60,.04)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.note{padding:12px 16px;border-radius:10px;background:var(--inb);color:var(--in);margin-bottom:16px;font-size:14px}
+.note.warn{background:var(--erb);color:var(--er)}.note .lnk{color:inherit;text-decoration:underline}
+.small{font-size:13px}.mt{margin-top:12px}.mu{color:var(--mu)}.hide{display:none}
+
+/* forms */
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+textarea{resize:vertical}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}.row>.w-sm{flex:0 0 110px;min-width:90px}
+.btn{border:0;background:var(--ac);color:#fff;padding:10px 16px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer;flex:none;width:auto;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px color-mix(in srgb,var(--ac) 35%,transparent)}.btn:active{transform:none}
+.btn.ghost{background:none;color:var(--ac);border:1px solid var(--ac)}.btn.sm{padding:6px 10px;font-size:13px}
+.lnk{font:inherit;border:0;background:none;color:var(--ac);padding:0;font-weight:600;cursor:pointer}
+.err{color:var(--er);margin-top:8px;font-size:14px}.err ul{margin:6px 0 0;padding-left:18px}
+.serr{color:var(--er);font-size:12.5px;font-weight:600;margin:6px 0 0}
+.opline{display:grid;grid-template-columns:100px 1fr 1.2fr 1fr auto;gap:8px;margin-top:8px}
+@media(max-width:640px){.opline{grid-template-columns:1fr 1fr}}
+
+/* tags */
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600}
+.ok,.st-active{background:var(--okb);color:var(--ok)}.wn{background:var(--wnb);color:var(--wn)}.info,.st-beta{background:var(--inb);color:var(--in)}.st-deprecated{background:var(--erb);color:var(--er)}
+.ver{font:600 12px ui-monospace,Menlo,monospace;color:var(--mu);border:1px solid var(--bd);border-radius:6px;padding:1px 6px;vertical-align:middle}
+.pill{background:color-mix(in srgb,var(--ac) 12%,transparent);color:var(--ac);font-weight:700;font-size:13px;padding:5px 12px;border-radius:99px;white-space:nowrap}
+.m{font:600 11px ui-monospace,Menlo,monospace;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,currentColor 14%,transparent);min-width:54px;display:inline-block;text-align:center}
+.GET{color:#0a7d4a}.POST{color:#b45309}.PUT{color:#1d4ed8}.DELETE{color:#c0262d}.PATCH{color:#7c3aed}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .GET{color:#34d399}:root:not([data-theme="light"]) .POST{color:#fbbf24}:root:not([data-theme="light"]) .PUT{color:#60a5fa}:root:not([data-theme="light"]) .DELETE{color:#f87171}:root:not([data-theme="light"]) .PATCH{color:#c4b5fd}}
+code{font-family:ui-monospace,Menlo,monospace;font-size:13px}
+pre{background:var(--cd);color:var(--cdt);border:1px solid #1b3355;padding:14px;border-radius:10px;overflow-x:auto;font-size:12.5px;margin:10px 0 0}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:8px;border-top:1px solid var(--bd);font-size:14px;vertical-align:top}
+th{white-space:nowrap}
+.ops{margin:8px 0 0;padding:0;list-style:none}.ops li{padding:6px 0;border-top:1px solid var(--bd);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* home */
+.quote{background:radial-gradient(600px 220px at 85% 0,rgba(52,211,153,.3),transparent 60%),radial-gradient(420px 200px at 0 100%,rgba(37,99,235,.38),transparent 60%),linear-gradient(135deg,#0b1f3a,#12385e);color:#fff;border-radius:14px;padding:30px 32px;margin-bottom:18px;position:relative;overflow:hidden;border-left:4px solid #34d399}
+.quote:after{content:"”";position:absolute;right:22px;top:-30px;font:120px Georgia,serif;color:rgba(52,211,153,.2)}
+.q-t{font-size:27px;font-weight:700;letter-spacing:-.015em;line-height:1.3;max-width:720px}.q-s{color:#9fb0cc;font-size:13.5px;margin-top:8px;max-width:620px}
+.met-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.met{padding:14px;border:1px solid var(--bd);border-radius:12px;background:var(--bg)}
+.met b{display:block;font-size:26px;line-height:1.15}.met span{font-size:12.5px;color:var(--mu)}
+.met.hl{background:var(--okb);border-color:color-mix(in srgb,var(--ok) 35%,transparent)}.met.hl b{color:var(--ok)}
+.met-n{font-size:13px;margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.met-n label{margin:0;font-size:13px}.met-n input{width:80px;padding:5px 8px}
+.wf-h2{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.wf-h2 h2{margin:0}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;margin-bottom:16px;align-items:start}
+.wf{padding:0;border-top:3px solid var(--ac);margin:0}
+.wf-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px}.wf-h h2{margin:0;font-size:16px}
+.wf-r{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:9px 18px;border-top:1px solid var(--bd);font-size:13.5px}.wf-r b{color:var(--ac)}.wf-r span{color:var(--mu)}
+.wf-n{margin:0;padding:10px 18px 14px;font-size:13px;border-top:1px solid var(--bd)}
+.u-s{padding:12px 18px;border-top:1px solid var(--bd)}.u-t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:99px;padding:5px 11px;font:inherit;font-size:12.5px;cursor:pointer}.chip:hover{border-color:var(--ac);color:var(--ac)}
+.ur{display:flex;justify-content:space-between;gap:10px;width:100%;padding:6px 0;border:0;background:none;color:inherit;font:inherit;font-size:13.5px;cursor:pointer;text-align:left}.ur:hover span{color:var(--ac)}.ur b{color:var(--ac)}
+.home-cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.home-cards .card{padding:22px;margin:0;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--ac);transition:transform .18s,box-shadow .18s}
+.home-cards .card:nth-child(2){border-top-color:var(--ac2)}.home-cards .card:nth-child(3){border-top-color:#2563eb}.home-cards .card:nth-child(4){border-top-color:#7c3aed}
+.home-cards .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(11,31,58,.14)}
+.home-cards .card h2{font-size:18px;margin:0 0 4px}.home-cards .card p{font-size:15px;line-height:1.6;flex:1;margin:0 0 14px}
+.home-cards .card .btn{align-self:flex-start}
+.hc-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:color-mix(in srgb,var(--ac) 12%,transparent);margin-bottom:8px}
+
+/* discovery */
+.searchbox{padding:22px 24px;border-top:3px solid var(--ac)}.searchbox label{margin-top:0}.searchbox .row{flex-wrap:nowrap}.searchbox input{padding:13px 15px;font-size:15px;border-radius:10px}.searchbox .btn{padding:0 28px}
+.try{font-size:13px;margin:10px 0 0;color:var(--mu)}.try .lnk{font-weight:500}
+.scan{padding:22px 24px}.sc-h{display:flex;align-items:center;gap:12px;font-size:16px;margin-bottom:12px}
+.spin{width:20px;height:20px;border-radius:50%;border:3px solid var(--bd);border-top-color:var(--ac);animation:spin .7s linear infinite}
+.sc-s{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--mu);font-size:14px;opacity:.55;transition:.2s}.sc-s i{width:16px;height:16px;border-radius:50%;border:2px solid var(--bd)}
+.sc-s.on{opacity:1;color:var(--tx)}.sc-s.on i{border-color:var(--ac);border-top-color:transparent;animation:spin .6s linear infinite}.sc-s.done{opacity:1;color:var(--ok)}.sc-s.done i{background:var(--ok);border-color:var(--ok)}
+.res-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+.found{padding:0;overflow:hidden;border-top:3px solid var(--ac)}
+.f-top{display:flex;gap:16px;align-items:center;padding:20px 24px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 10%,transparent),transparent)}
+.f-ic{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;font-size:24px;color:#fff;flex:none}
+.f-ti{flex:1;min-width:0}.f-ti h2{font-size:21px;margin:8px 0 2px;letter-spacing:-.015em}.f-ti p{margin:0;color:var(--mu)}
+.f-cnt{text-align:center;padding:10px 18px;border-radius:14px;background:var(--card);border:1px solid var(--bd)}.f-cnt b{display:block;font-size:28px;line-height:1.1;color:var(--ac)}.f-cnt span{font-size:12px;color:var(--mu)}
+.f-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--bd);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.f-meta div{background:var(--card);padding:12px 24px;min-width:0;font-size:14px}.f-meta i{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:3px}.f-meta code{word-break:break-all}
+.f-meta a{color:var(--ac)}
+.f-rec{margin:18px 24px 0;padding:14px 16px;border-radius:12px;background:var(--okb);border:1px solid color-mix(in srgb,var(--ok) 35%,transparent)}
+.f-rec-t{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--ok);font-size:14px}.f-rec-t span{font-weight:600}
+.bar{height:8px;border-radius:99px;background:color-mix(in srgb,var(--ok) 20%,transparent);margin:10px 0}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ok),var(--ac2));animation:grow .9s ease both}
+.f-rec p{margin:0;font-size:14px}
+.f-rec.rv{background:var(--inb);border-color:color-mix(in srgb,var(--in) 30%,transparent)}.f-rec.rv .f-rec-t{color:var(--in)}.f-rec.rv .bar{background:color-mix(in srgb,var(--in) 18%,transparent)}.f-rec.rv .bar i{background:var(--in)}
+.f-rec.warn{background:var(--wnb);border-color:color-mix(in srgb,var(--wn) 35%,transparent)}.f-rec.warn .f-rec-t{color:var(--wn)}.f-rec.warn .bar{background:color-mix(in srgb,var(--wn) 20%,transparent)}.f-rec.warn .bar i{background:var(--wn)}
+.f-h{padding:18px 24px 8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.f-ops{padding:0 24px;display:grid;gap:8px}
+.f-op{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:9px 14px;border:1px solid var(--bd);border-radius:10px;background:var(--bg)}.f-op code{font-weight:600}
+.f-act{display:flex;gap:12px;flex-wrap:wrap;padding:20px 24px 24px}.f-act .btn{padding:12px 22px}
+.rpanel{margin:0 24px 24px;padding:18px;border:1px solid var(--bd);border-radius:12px;background:color-mix(in srgb,var(--ac) 5%,transparent)}
+.card:not(.found)>.rpanel{margin:16px 0 0}
+.rpanel p{margin:6px 0}
+.none-fit{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.none-fit p{margin:4px 0 0}
+
+/* creation */
+.stp{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-6px 0 18px}.stp em{width:24px;height:2px;background:var(--bd)}
+.sp{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:99px;background:var(--card);border:1px solid var(--bd);font-size:13px;font-weight:600;color:var(--mu);transition:.2s}
+.sp i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--bd);font-size:12px}
+.sp.done{color:var(--ok);border-color:var(--ok);background:var(--okb)}.sp.done i{background:var(--ok);color:#fff}
+.cg{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
+.cg-r{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}.live pre{max-height:70vh;overflow:auto;margin-top:0}
+.dupbox{margin-top:10px;border:1px solid var(--bd);border-radius:10px;padding:10px 12px;background:var(--bg)}.dupbox>b{font-size:13px}
+.dupr{display:grid;grid-template-columns:1fr auto;gap:2px 10px;width:100%;padding:8px 0;border:0;border-top:1px solid var(--bd);background:none;color:inherit;font:inherit;font-size:13.5px;cursor:pointer;text-align:left}
+.dupr:hover .dn{color:var(--ac)}.dupr b{color:var(--ac)}.dupr .dw{grid-column:1/-1;font-size:12.5px}.dupr em{color:var(--mu)}
+
+/* docs */
+.dsearch{margin-bottom:12px;padding:11px 14px;border-radius:10px}
+.pick{margin:0;padding:12px;font:inherit;color:inherit;text-align:left;width:100%;cursor:pointer}
+.pick.on{border-color:var(--ac);box-shadow:0 0 0 2px var(--ac) inset}
+#picks{margin-bottom:16px}
+
+/* architecture */
+.flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.fs{flex:1 1 130px;border:1px solid var(--bd);border-radius:12px;padding:12px;background:var(--bg);display:flex;flex-direction:column;gap:2px}
+.fs span{font-size:20px}.fs small{color:var(--mu);font-size:12.5px;line-height:1.35}
+.fa{align-self:center;color:var(--ac);font-weight:700}
+.cmp td:first-child{font-weight:600;white-space:nowrap}
+.duo2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card ul.lst{margin:0;padding-left:18px}.card ul.lst li{margin:6px 0}
+
+/* tour + toast */
+.tour{position:fixed;right:20px;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);width:350px;max-width:calc(100% - 32px);background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:14px;padding:14px 16px;box-shadow:0 18px 40px rgba(0,0,0,.22);z-index:40}
+.t-n{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}.tour p{margin:6px 0 12px;font-size:14.5px}.t-b{display:flex;justify-content:flex-end;gap:8px}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transform:translate(-50%,20px);background:#0b1f3a;color:#fff;padding:11px 18px;border-radius:99px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.25)}#toast.show{opacity:1;transform:translate(-50%,0)}
+
+
+/* IntegraIQ AI assistant additions */
+.ai-card{border:1px solid color-mix(in srgb,var(--ac) 42%,var(--bd));border-top:3px solid var(--ac);background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 7%,var(--card)),var(--card) 55%)}
+.ai-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}.ai-orb{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;font-size:18px}
+.ai-note{font-size:12px;color:var(--mu);margin:8px 0 0}.ai-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.ai-result{border:1px solid var(--bd);border-radius:12px;padding:14px;margin-top:10px;background:var(--card)}
+.ai-result-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.ai-score{font-size:22px;font-weight:800;color:var(--ac)}.ai-chip{display:inline-block;border-radius:99px;padding:3px 9px;font-size:11px;font-weight:700;background:var(--inb);color:var(--in)}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}.ai-kv{padding:9px;border-radius:8px;background:var(--bg);font-size:13px}.ai-kv b{display:block;font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
+.ai-warn{padding:10px 12px;border-radius:9px;background:var(--wnb);color:var(--wn);font-size:13px;margin-top:10px}
+.ai-good{padding:10px 12px;border-radius:9px;background:var(--okb);color:var(--ok);font-size:13px;margin-top:10px}
+.ai-loading{color:var(--mu);font-size:13px;padding:12px}.ai-example{font-size:12px}
+
+/* discovery filters, repo hero, TDD */
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:var(--card);border:1px solid var(--bd);margin:0 0 16px}
+.seg button{font:inherit;font-size:14px;font-weight:600;border:0;background:none;color:var(--mu);padding:8px 16px;border-radius:9px;cursor:pointer}
+.seg button.on{background:var(--ac);color:#fff}
+:root[data-theme="dark"] .seg button.on{color:#04261b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button.on{color:#04261b}}
+.mono{font-family:ui-monospace,Menlo,monospace!important;font-size:14px!important}
+.fb{margin-top:18px;padding-top:16px;border-top:1px solid var(--bd)}
+.fb-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px}
+.fb-h select{width:auto;padding:4px 8px;margin:0 4px}
+.frow{display:grid;grid-template-columns:190px 70px 1fr auto;gap:8px;margin-top:8px}
+@media(max-width:640px){.frow{grid-template-columns:1fr 70px}}
+.rt td{font-size:13.5px}
+.mo{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:2px 0 4px}
+.oid{font-size:11.5px;color:var(--mu);background:var(--bg);border:1px solid var(--bd);border-radius:5px;padding:0 5px}
+.oid.hit{color:var(--ok);background:var(--okb);border-color:color-mix(in srgb,var(--ok) 40%,transparent);font-weight:700}
+.repo-hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:16px 18px;border-radius:12px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 12%,transparent),transparent);border:1px solid color-mix(in srgb,var(--ac) 30%,transparent);margin-bottom:14px}
+.rh-n b{display:block;font-size:42px;line-height:1;color:var(--ac)}.rh-n span{font-size:13px;color:var(--mu)}
+.rh-i{flex:1;min-width:220px}.rh-i code{font-size:14px;font-weight:600}.rh-b{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tdd-prev{width:100%;height:70vh;border:1px solid var(--bd);border-radius:10px;background:#fff;margin-top:14px}
+.tbd-k{background:#fff2a8;color:#7a5200;padding:0 4px;border-radius:4px;font-weight:600}
+/* roles, templates admin */
+.row>.btn{min-width:0}
+.role{margin:0 8px 16px;display:flex;align-items:center;gap:8px}
+.role label{margin:0;font-size:12px;font-weight:600;color:#9fb0cc;white-space:nowrap}
+.role select{padding:6px 8px;font-size:12.5px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:8px}
+.role select option{color:#111}
+details.tdm{margin-top:14px;border:1px solid var(--bd);border-radius:10px;padding:10px 14px;background:var(--bg)}
+details.tdm summary{cursor:pointer;font-weight:600;font-size:14px}
+.tplg{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.tplc{margin:0;display:flex;flex-direction:column}.tplc.off{opacity:.7}
+.tplc-h{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:flex-start}.tplc p{margin:8px 0 0}
+.tpl-act{margin-top:auto;padding-top:14px;gap:6px}
+.btn.danger{color:var(--er);border-color:var(--er)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.blk{border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:var(--bg)}
+.blk-auto{border-left:3px solid var(--ac)}
+.blk-h{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.blk-t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.blk-h select{width:auto;padding:4px 8px;font-size:13px}.blk-sp{flex:1}
+.blk textarea,.blk input{font-size:13.5px}
+.ib{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:6px;width:28px;height:28px;cursor:pointer;font:inherit;font-size:13px}.ib:disabled{opacity:.35;cursor:default}
+.addb{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.phl{display:grid;gap:4px;max-height:280px;overflow:auto;margin-bottom:10px}.phl div{display:flex;justify-content:space-between;gap:8px;font-size:12.5px}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes grow{from{width:0}}
+#app>*{animation:rise .4s ease both}#app>*:nth-child(2){animation-delay:.05s}#app>*:nth-child(3){animation-delay:.1s}#app>*:nth-child(4){animation-delay:.15s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media(max-width:1000px){.cg{grid-template-columns:1fr}.cg-r{position:static}}
+@media(max-width:900px){.duo,.duo2{grid-template-columns:1fr}}
+@media(max-width:760px){.shell{flex-direction:column}aside{width:auto}.side-in{position:static;padding:12px}.side-panel{display:none}.more-btn{display:inline-flex}aside.open .side-panel{display:block;background:var(--navy);border-radius:12px;padding:4px 4px 10px;margin-top:10px}nav{flex-direction:row!important;overflow-x:auto}nav button{white-space:nowrap}.fa{display:none}main{padding:20px 16px 60px}.q-t{font-size:22px}}
+@media(max-width:640px){.f-top{flex-wrap:wrap}.searchbox .row{flex-wrap:wrap}.tour{left:16px;right:16px;width:auto}}
+
+/* ================= Design picker ================= */
+.skin{display:flex;align-items:center;gap:8px;margin:0 8px 16px}
+.sk-l{font-size:12px;font-weight:600;color:#9fb0cc}
+.sk-sw{display:flex;gap:6px;flex:1}
+.sw{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:linear-gradient(135deg,var(--a) 50%,var(--b) 50%);cursor:pointer;padding:0;transition:transform .15s,box-shadow .15s}
+.sw:hover{transform:scale(1.15)}.sw.on{border-color:#fff;box-shadow:0 0 0 2px var(--a)}
+.mode{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;border-radius:8px;min-width:30px;height:28px;cursor:pointer;font-size:14px;line-height:1}
+.mode:disabled{opacity:.4;cursor:not-allowed}
+.more-btn{display:none;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;border-radius:8px;padding:7px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;margin:10px 0 0}
+@media(max-width:760px){.more-btn{display:inline-flex}}
+:root[data-theme="dark"] .GET{color:#34d399}:root[data-theme="dark"] .POST{color:#fbbf24}:root[data-theme="dark"] .PUT{color:#60a5fa}:root[data-theme="dark"] .DELETE{color:#f87171}:root[data-theme="dark"] .PATCH{color:#c4b5fd}
+
+/* ================= Aurora: frosted glass, violet and cyan ================= */
+:root[data-skin="aurora"]{--bg:#f5f3ff;--card:rgba(255,255,255,.74);--tx:#1e1b4b;--mu:#5b5f86;--bd:rgba(124,58,237,.18);--ac:#7c3aed;--ac2:#0891b2;--ok:#0f7a55;--okb:#e2f7ee;--in:#4338ca;--inb:#ecebff;--wn:#8a5200;--wnb:#fff3dc;--er:#c0262d;--erb:#fde8e8;--navy:#1e1b4b}
+@media (prefers-color-scheme:dark){:root[data-skin="aurora"]:not([data-theme="light"]){--bg:#0c0a24;--card:rgba(30,27,75,.6);--tx:#ecebff;--mu:#a5a8d6;--bd:rgba(167,139,250,.22);--ac:#a78bfa;--ac2:#22d3ee;--ok:#5fd9a0;--okb:#0f3a2c;--in:#a5b4fc;--inb:#1e1b4b;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--navy:#0c0a24}}
+:root[data-skin="aurora"][data-theme="dark"]{--bg:#0c0a24;--card:rgba(30,27,75,.6);--tx:#ecebff;--mu:#a5a8d6;--bd:rgba(167,139,250,.22);--ac:#a78bfa;--ac2:#22d3ee;--ok:#5fd9a0;--okb:#0f3a2c;--in:#a5b4fc;--inb:#1e1b4b;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--navy:#0c0a24}
+:root[data-skin="aurora"] body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+:root[data-skin="aurora"] body::before{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;background:radial-gradient(38% 38% at 18% 22%,rgba(124,58,237,.30),transparent 70%),radial-gradient(34% 34% at 86% 14%,rgba(6,182,212,.26),transparent 70%),radial-gradient(42% 42% at 72% 88%,rgba(236,72,153,.20),transparent 70%);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(3%,-3%) rotate(5deg)}}
+:root[data-skin="aurora"] .card{backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-radius:18px;box-shadow:0 10px 34px rgba(76,29,149,.10)}
+:root[data-skin="aurora"] aside{background:linear-gradient(180deg,#2e1065 0%,#1e1b4b 55%,#0c4a6e 100%)}
+:root[data-skin="aurora"] nav button.on{background:rgba(255,255,255,.12);color:#fff;box-shadow:inset 3px 0 0 #22d3ee}
+:root[data-skin="aurora"] .logo i{background:linear-gradient(135deg,#a78bfa,#22d3ee)}
+:root[data-skin="aurora"] .btn:not(.ghost){background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}
+:root[data-skin="aurora"] .seg button.on{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}
+:root[data-skin="aurora"] .quote{background:linear-gradient(120deg,#4c1d95,#7c3aed 45%,#0891b2);border-left:0;border-radius:22px;box-shadow:0 18px 50px rgba(76,29,149,.25)}
+:root[data-skin="aurora"] .quote:after{color:rgba(255,255,255,.18)}:root[data-skin="aurora"] .q-s{color:#e0e7ff}
+:root[data-skin="aurora"] h1{background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+:root[data-skin="aurora"] .home-cards .card:nth-child(3){border-top-color:#ec4899}
+:root[data-skin="aurora"] .hc-ic{background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(6,182,212,.16))}
+
+/* ================= Midnight Neon: always dark, neon glow ================= */
+:root[data-skin="midnight"]{--bg:#05060f;--card:#0c1022;--tx:#e6e9ff;--mu:#8f96c2;--bd:#1f2650;--ac:#22d3ee;--ac2:#a855f7;--ok:#4ade80;--okb:#0b2a1c;--wn:#fbbf24;--wnb:#2b2008;--er:#fb7185;--erb:#33101a;--in:#93c5fd;--inb:#111a3a;--cd:#03040b;--navy:#070918;color-scheme:dark}
+:root[data-skin="midnight"] body{font-family:"Space Grotesk",Inter,system-ui,sans-serif;background:radial-gradient(1100px 560px at 85% -10%,rgba(168,85,247,.20),transparent 60%),radial-gradient(900px 500px at -10% 110%,rgba(34,211,238,.15),transparent 60%),var(--bg);background-attachment:fixed}
+:root[data-skin="midnight"] aside{background:#070918;border-right:1px solid #1f2650}
+:root[data-skin="midnight"] nav button.on{background:linear-gradient(90deg,rgba(34,211,238,.18),rgba(168,85,247,.10));color:#67e8f9;box-shadow:inset 3px 0 0 #22d3ee,0 0 22px rgba(34,211,238,.14)}
+:root[data-skin="midnight"] .logo i{background:linear-gradient(135deg,#22d3ee,#a855f7);box-shadow:0 0 16px rgba(34,211,238,.55)}
+:root[data-skin="midnight"] .card{box-shadow:0 0 0 1px rgba(34,211,238,.04),0 14px 34px rgba(0,0,0,.45)}
+:root[data-skin="midnight"] .home-cards .card:hover,:root[data-skin="midnight"] .found:hover,:root[data-skin="midnight"] .tplc:hover{border-color:rgba(34,211,238,.45);box-shadow:0 0 30px rgba(34,211,238,.14)}
+:root[data-skin="midnight"] .btn:not(.ghost){background:linear-gradient(135deg,#22d3ee,#a855f7);color:#05060f;box-shadow:0 0 18px rgba(34,211,238,.30)}
+:root[data-skin="midnight"] .btn.ghost{color:#67e8f9;border-color:rgba(34,211,238,.5)}
+:root[data-skin="midnight"] .seg button.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#05060f}
+:root[data-skin="midnight"] h1{background:linear-gradient(90deg,#67e8f9,#c084fc);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.03em}
+:root[data-skin="midnight"] .quote{background:linear-gradient(135deg,#0b1030,#1a0b33);border:1px solid rgba(168,85,247,.35);border-left:4px solid #22d3ee;box-shadow:0 0 50px rgba(168,85,247,.16)}
+:root[data-skin="midnight"] .q-t{background:linear-gradient(90deg,#fff,#a5f3fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+:root[data-skin="midnight"] .home-cards .card:nth-child(3){border-top-color:#f472b6}
+:root[data-skin="midnight"] .GET{color:#34d399}:root[data-skin="midnight"] .POST{color:#fbbf24}:root[data-skin="midnight"] .PUT{color:#60a5fa}:root[data-skin="midnight"] .DELETE{color:#fb7185}:root[data-skin="midnight"] .PATCH{color:#c4b5fd}
+:root[data-skin="midnight"] #toast{background:#0c1022;border:1px solid rgba(34,211,238,.4);box-shadow:0 0 24px rgba(34,211,238,.25)}
+
+/* ================= Horizon: top navigation, clean corporate ================= */
+:root[data-skin="horizon"]{--bg:#f6f8fc;--card:#fff;--tx:#0f172a;--mu:#5b6478;--bd:#e3e8f2;--ac:#2563eb;--ac2:#0ea5e9;--ok:#15803d;--okb:#e8f7ee;--in:#1d4ed8;--inb:#e8efff;--wn:#8a5200;--wnb:#fff3dc;--er:#c0262d;--erb:#fde8e8;--navy:#0f172a}
+@media (prefers-color-scheme:dark){:root[data-skin="horizon"]:not([data-theme="light"]){--bg:#0b1220;--card:#111a2e;--tx:#e6ecf8;--mu:#93a0bb;--bd:#22304d;--ac:#3b82f6;--ac2:#38bdf8;--ok:#4ade80;--okb:#0f2e1e;--in:#93c5fd;--inb:#132447;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--navy:#0b1220}}
+:root[data-skin="horizon"][data-theme="dark"]{--bg:#0b1220;--card:#111a2e;--tx:#e6ecf8;--mu:#93a0bb;--bd:#22304d;--ac:#3b82f6;--ac2:#38bdf8;--ok:#4ade80;--okb:#0f2e1e;--in:#93c5fd;--inb:#132447;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--navy:#0b1220}
+:root[data-skin="horizon"] body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+:root[data-skin="horizon"] aside{background:var(--card);color:var(--tx);border-bottom:1px solid var(--bd)}
+:root[data-skin="horizon"] .logo{color:var(--tx)}:root[data-skin="horizon"] .logo i{background:linear-gradient(135deg,#2563eb,#0ea5e9)}
+:root[data-skin="horizon"] nav button{color:var(--mu)}
+:root[data-skin="horizon"] nav button:hover{background:color-mix(in srgb,var(--ac) 8%,transparent);color:var(--tx)}
+:root[data-skin="horizon"] nav button.on{background:color-mix(in srgb,var(--ac) 10%,transparent);color:var(--ac);box-shadow:inset 0 -2px 0 var(--ac)}
+:root[data-skin="horizon"] .role label,:root[data-skin="horizon"] .sk-l{color:var(--mu)}
+:root[data-skin="horizon"] .role select{background:var(--bg);color:var(--tx);border-color:var(--bd)}
+:root[data-skin="horizon"] .sw{border-color:var(--bd)}:root[data-skin="horizon"] .sw.on{border-color:var(--card)}
+:root[data-skin="horizon"] .mode,:root[data-skin="horizon"] .more-btn{background:var(--bg);color:var(--tx);border-color:var(--bd)}
+:root[data-skin="horizon"] .btn:not(.ghost){color:#fff}
+:root[data-skin="horizon"] .seg button.on{color:#fff}
+:root[data-skin="horizon"] .quote{background:radial-gradient(520px 240px at 90% 0,rgba(14,165,233,.45),transparent 60%),linear-gradient(120deg,#1e3a8a,#2563eb 60%,#0284c7);border-left:0;border-radius:20px;padding:44px 40px}
+:root[data-skin="horizon"] .q-s{color:#dbeafe}:root[data-skin="horizon"] .quote:after{color:rgba(255,255,255,.18)}
+:root[data-skin="horizon"] .card{border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
+:root[data-skin="horizon"] h1{font-size:28px;font-weight:800}
+:root[data-skin="horizon"] .home-cards .card:nth-child(2){border-top-color:#0ea5e9}:root[data-skin="horizon"] .home-cards .card:nth-child(3){border-top-color:#6366f1}
+@media(min-width:761px){
+  :root[data-skin="horizon"] .shell{flex-direction:column}
+  :root[data-skin="horizon"] aside{width:auto;position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  :root[data-skin="horizon"] .side-in{position:relative;display:flex;align-items:center;gap:14px;padding:10px 24px;flex-wrap:wrap}
+  :root[data-skin="horizon"] .logo{padding:0;order:0}
+  :root[data-skin="horizon"] .logo span{font-size:14px}
+  :root[data-skin="horizon"] nav{min-width:0}
+  :root[data-skin="horizon"] nav .ic{display:none}
+  :root[data-skin="horizon"] nav button{padding:8px 11px}
+  :root[data-skin="horizon"] .role label,:root[data-skin="horizon"] .sk-l{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  :root[data-skin="horizon"] nav{flex-direction:row;order:1;flex:1;gap:2px;overflow-x:auto;justify-content:center}
+  :root[data-skin="horizon"] nav button{padding:8px 12px;font-size:14px;white-space:nowrap;gap:8px}
+  :root[data-skin="horizon"] nav button.on{box-shadow:inset 0 -2px 0 var(--ac)}
+  :root[data-skin="horizon"] .role{order:2;margin:0}:root[data-skin="horizon"] .skin{order:3;margin:0}
+  :root[data-skin="horizon"] .more-btn{display:inline-flex;order:4;margin:0}
+  :root[data-skin="horizon"] .side-panel{display:none;position:absolute;right:24px;top:calc(100% + 8px);width:330px;max-height:80vh;overflow:auto;background:var(--navy);border-radius:14px;padding:6px 6px 12px;box-shadow:0 22px 50px rgba(15,23,42,.35)}
+  :root[data-skin="horizon"] aside.open .side-panel{display:block}
+  :root[data-skin="horizon"] main{max-width:1200px;padding-top:34px}
+}
+
+/* ================= Sunset: warm editorial ================= */
+:root[data-skin="sunset"]{--bg:#fff7ef;--card:#fffdfa;--tx:#2a1810;--mu:#7a5c4c;--bd:#f1dccb;--ac:#e8590c;--ac2:#db2777;--ok:#15803d;--okb:#eaf7ee;--in:#9a3412;--inb:#fff0e3;--wn:#8a5200;--wnb:#fff3dc;--er:#c0262d;--erb:#fde8e8;--navy:#2a1215}
+@media (prefers-color-scheme:dark){:root[data-skin="sunset"]:not([data-theme="light"]){--bg:#1a0f0c;--card:#26150f;--tx:#fbeee6;--mu:#c4a596;--bd:#3d2419;--ac:#fb923c;--ac2:#f472b6;--ok:#4ade80;--okb:#10291b;--in:#fdba74;--inb:#3a1d10;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--navy:#140a08}}
+:root[data-skin="sunset"][data-theme="dark"]{--bg:#1a0f0c;--card:#26150f;--tx:#fbeee6;--mu:#c4a596;--bd:#3d2419;--ac:#fb923c;--ac2:#f472b6;--ok:#4ade80;--okb:#10291b;--in:#fdba74;--inb:#3a1d10;--wn:#ffc15e;--wnb:#33280f;--er:#f87171;--erb:#3a1418;--navy:#140a08}
+:root[data-skin="sunset"] body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+:root[data-skin="sunset"] h1,:root[data-skin="sunset"] h2,:root[data-skin="sunset"] .q-t,:root[data-skin="sunset"] .logo span{font-family:Fraunces,Georgia,"Times New Roman",serif;letter-spacing:-.01em}
+:root[data-skin="sunset"] h1{font-size:30px;font-weight:700}
+:root[data-skin="sunset"] aside{background:linear-gradient(180deg,#3b1219 0%,#2a1215 55%,#431407 100%)}
+:root[data-skin="sunset"] nav button.on{background:rgba(251,146,60,.16);color:#fdba74;box-shadow:inset 3px 0 0 #fb923c}
+:root[data-skin="sunset"] .logo i{background:linear-gradient(135deg,#fb923c,#db2777)}
+:root[data-skin="sunset"] .btn:not(.ghost){background:linear-gradient(135deg,#f97316,#db2777);color:#fff}
+:root[data-skin="sunset"] .seg button.on{background:linear-gradient(135deg,#f97316,#db2777);color:#fff}
+:root[data-skin="sunset"] .quote{background:radial-gradient(500px 220px at 90% 0,rgba(251,191,36,.38),transparent 60%),linear-gradient(120deg,#7c2d12,#c2410c 50%,#be185d);border-left:0;border-radius:24px}
+:root[data-skin="sunset"] .q-s{color:#ffedd5}:root[data-skin="sunset"] .quote:after{color:rgba(255,237,213,.25)}
+:root[data-skin="sunset"] .card{border-radius:20px;box-shadow:0 2px 0 rgba(124,45,18,.04),0 12px 30px rgba(124,45,18,.07)}
+:root[data-skin="sunset"] .home-cards .card{border-top:0;background:linear-gradient(180deg,var(--card),var(--bg))}
+:root[data-skin="sunset"] .hc-ic{background:linear-gradient(135deg,rgba(249,115,22,.16),rgba(219,39,119,.14))}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside id="side"><div class="side-in">
+  <div class="logo"><i aria-hidden="true">⚡</i><span>Integration API<br>Accelerator</span></div>
+  <div class="role" id="role"></div>
+  <div class="skin" id="skin"></div>
+  <nav id="nav" aria-label="Main"></nav>
+  <button class="more-btn" id="morebtn" aria-expanded="false" aria-controls="sidepanel" onclick="event.stopPropagation();togglePanel()">⎇ Repo &amp; tools</button>
+  <div class="side-panel" id="sidepanel">
+    <div class="side-git" id="gitbox"></div>
+    <div class="side-foot"><b>Reuse first</b>Check for an existing API before building a new one.
+      <div class="sf-btns"><button class="sf-b" onclick="startTour()">▶ Guided demo</button><button class="sf-b" id="rst" onclick="resetDemo(this)">↺ Reset demo data</button></div>
+    </div>
+  </div>
+</div></aside>
+<main>
+  <div class="banner" role="note"><b>Demo mode.</b> The catalog is sample data, Git commits and pull requests are simulated, and matching is rule-based. <button class="lnk" onclick="go('arch')">See the production design →</button></div>
+  <div id="app"></div>
+</main>
+</div>
+<div id="tour" class="tour" hidden role="dialog" aria-label="Guided demo" aria-live="polite"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ================= Helpers =================
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const sha=()=>Array.from({length:7},()=>'0123456789abcdef'[Math.random()*16|0]).join('');
+const safeUrl=u=>{u=String(u||'').trim();return /^https:\/\/[^\s"'<>]+$/i.test(u)?u:''};
+const isHttpUrl=u=>{try{const x=new URL(String(u).trim());return /^https?:$/.test(x.protocol)&&!!x.host}catch(e){return false}};
+const looksUrl=q=>/^https?:\/\//i.test(q)||/^[a-z0-9-]+(\.[a-z0-9-]+)+(\/|:|$)/i.test(q);
+function parseUrl(u){try{u=String(u).trim();const x=new URL(/^https?:\/\//i.test(u)?u:'https://'+u);return{host:x.host.toLowerCase(),path:x.pathname.replace(/\/+$/,'').toLowerCase()}}catch(e){return null}}
+function normSfx(s){s=String(s||'').trim().toLowerCase().replace(/\/+$/,'');return s&&s[0]!=='/'?'/'+s:s}
+const g=id=>((document.getElementById(id)||{}).value||'').trim();
+const METHODS=['GET','POST','PUT','PATCH','DELETE'];
+const authLbl=a=>a.auth==='oauth'?'OAuth 2.0 (bearer JWT)':'Subscription key';
+const ST={active:'Active',beta:'Beta',deprecated:'Deprecated'};
+const stBadge=a=>`<span class="tag st-${esc(a.status)}">${ST[a.status]||esc(a.status)}</span>`;
+const idxByName=n=>store.apis.findIndex(a=>a.name===n);
+const idxById=id=>store.apis.findIndex(a=>a.id===id);
+const specPath=a=>`apis/${slug(a.name)||'untitled'}/${a.version||'v1'}/openapi.yaml`;
+
+// ================= Seed catalog (sample data) =================
+const SVC='https://github.com/contoso-ai/';
+const SEED=[
+ {name:'Model Inference API',backend:'https://ml.internal.contoso.com/inference',suffix:'/ai/inference/v1',codeRepo:SVC+'model-inference-api',vault:'kv-ai-prod/ml-inference-key',team:'ML Platform',contact:'ml-platform@contoso.com',status:'active',auth:'oauth',consumers:14,desc:'Run predictions against hosted ML and LLM models.',ops:[['POST','/predict','Run a model prediction'],['POST','/chat/completions','LLM chat completion'],['GET','/models','List available models'],['GET','/models/{id}','Get model details'],['GET','/health','Service health']]},
+ {name:'Embeddings API',backend:'https://ai.contoso.com/embeddings',suffix:'/ai/embeddings/v1',codeRepo:SVC+'embeddings-api',vault:'kv-ai-prod/embeddings-key',team:'AI Search',contact:'ai-search@contoso.com',status:'active',auth:'key',consumers:9,desc:'Generate vector embeddings for text and documents.',ops:[['POST','/embed','Embed a single text'],['POST','/embed/batch','Embed a batch of texts'],['GET','/dimensions','Get vector dimensions']]},
+ {name:'Vector Search API',backend:'https://vector.contoso.com/search',suffix:'/ai/search/v1',codeRepo:SVC+'vector-search-api',vault:'kv-ai-prod/vector-search-key',team:'AI Search',contact:'ai-search@contoso.com',status:'active',auth:'oauth',consumers:7,desc:'Similarity search across indexed knowledge bases.',ops:[['POST','/query','Semantic similarity search'],['POST','/index','Add documents to index'],['DELETE','/index/{id}','Remove a document'],['GET','/indexes','List indexes']]},
+ {name:'Document Summarizer API',backend:'https://nlp.contoso.com/summarize',suffix:'/ai/summarize/v1',codeRepo:SVC+'doc-summarizer-api',vault:'kv-ai-prod/nlp-key',team:'NLP Services',contact:'nlp-services@contoso.com',status:'active',auth:'key',consumers:5,desc:'Summarize long documents with an LLM.',ops:[['POST','/summarize','Summarize text'],['POST','/summarize/file','Summarize an uploaded file'],['GET','/jobs/{id}','Get async job status']]},
+ {name:'Prompt Management API',backend:'https://prompts.contoso.com/v1',suffix:'/ai/prompts/v1',codeRepo:SVC+'prompt-mgmt-api',vault:'kv-ai-prod/prompt-store-key',team:'GenAI Enablement',contact:'genai@contoso.com',status:'beta',auth:'key',consumers:3,desc:'Store, version and retrieve prompt templates.',ops:[['GET','/prompts','List prompts'],['POST','/prompts','Create a prompt'],['PUT','/prompts/{id}','Update a prompt'],['DELETE','/prompts/{id}','Delete a prompt']]},
+ {name:'Legacy Text Analytics API',backend:'https://nlp.contoso.com/legacy-text',suffix:'/nlp/text/v1',codeRepo:SVC+'legacy-text-analytics',vault:'kv-ai-prod/nlp-key',team:'NLP Services',contact:'nlp-services@contoso.com',status:'deprecated',successor:'Document Summarizer API',auth:'key',consumers:2,desc:'Keyword extraction and language detection (being retired).',ops:[['POST','/keywords','Extract keywords'],['POST','/language','Detect language']]},
+ {name:'Zeta Risk Scoring API',backend:'https://zeta-risk.contoso.com/v2/score',suffix:'/risk/zeta/v1',codeRepo:SVC+'zeta-risk-scoring',vault:'kv-fin-prod/zeta-risk-key',team:'Risk Engineering',contact:'risk-eng@contoso.com',status:'active',auth:'oauth',consumers:6,desc:'Real-time fraud and credit risk scores from the Zeta scoring engine.',ops:[['POST','/score','Score a transaction','TEST123'],['POST','/score/batch','Score a batch of transactions','TEST124'],['GET','/models','List scoring models']]}
+];
+const LS_KEY='iaa-demo-v3';
+const seedApis=()=>SEED.map((a,i)=>({id:'api-'+i,version:'v1',origin:'existing',...a,ops:a.ops.map(o=>[...o]),specFile:specPath({name:a.name,version:'v1'})}));
+const fresh=()=>({v:3,apis:seedApis(),git:{repo:'https://github.com/contoso-ai/api-specs',branch:'main'},prs:[],nextPr:101,nextId:SEED.length,metrics:{searches:0,reuse:0,created:0,createdDespite:0,opsAdded:0},devDays:5});
+function withTpls(s){
+  const old=Array.isArray(s.templates)?s.templates:[],hid=new Set(old.filter(t=>t.builtIn&&t.enabled===false).map(t=>t.id));
+  s.templates=BUILTIN_TPLS().map(t=>({...t,enabled:!hid.has(t.id)})).concat(old.filter(t=>!t.builtIn));
+  if(!s.templates.some(t=>t.id===s.defaultTpl))s.defaultTpl='tpl-process';
+  if(s.role!=='admin')s.role='user';
+  if(!['fintech','aurora','midnight','horizon','sunset'].includes(s.skin))s.skin='fintech';
+  if(!['auto','light','dark'].includes(s.mode))s.mode='auto';
+  return s;
+}
+function load(){try{const s=JSON.parse(localStorage.getItem(LS_KEY)||'null');if(s&&s.v===3&&Array.isArray(s.apis)&&s.apis.length)return withTpls(s)}catch(e){}return withTpls(fresh())}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(store))}catch(e){}}
+let store=load();
+const initState=()=>({tab:'home',dmode:'match',flt:[{f:'OPERATION_ID',op:'=',v:''},{f:'BACKEND',op:'=',v:''}],fjoin:'AND',fres:null,query:'',results:[],searched:false,strong:false,reuseCounted:false,aiRequirement:'',aiResults:[],aiAnalysis:null,aiBusy:false,docSel:0,docQ:'',draft:null,cv:null,created:false,ops:[['GET','/health','Service health']]});
+let state=initState();
+let RN=[['GET','/','']];
+
+// ================= Match engine (rule-based) =================
+const STOP=new Set(['api','apis','service','services','the','a','an','for','and','of','to','v1','v2','v3','endpoint','https','http','www','com','net','io','internal','contoso','ai']);
+const tokens=s=>String(s||'').toLowerCase().split(/[^a-z0-9]+/).filter(t=>t.length>1&&!STOP.has(t)).map(t=>t.length>4&&t.endsWith('s')?t.slice(0,-1):t);
+const hit=(t,set)=>set.some(x=>x===t||(t.length>=4&&x.length>=4&&(x.startsWith(t)||t.startsWith(x))));
+function kwScore(a,qt){
+  if(!qt.length)return{score:0};
+  const nt=tokens(a.name),tt=tokens(a.desc+' '+a.ops.map(o=>o[1]+' '+o[2]).join(' '));
+  const nh=qt.filter(t=>hit(t,nt)),th=qt.filter(t=>hit(t,tt)),all=[...new Set([...nh,...th])];
+  if(nh.length===qt.length)return{score:90,why:'API name match'};
+  return{score:Math.round(nh.length/qt.length*55+th.length/qt.length*40),why:'Keyword overlap: '+all.join(', ')};
+}
+function matchApi(a,q){
+  q=String(q||'').trim();if(!q)return null;
+  if(q[0]==='/'&&normSfx(a.suffix)===normSfx(q))return{score:100,why:'Exact gateway URL suffix match'};
+  if(looksUrl(q)){
+    const u=parseUrl(q),b=parseUrl(a.backend);
+    if(u&&b&&u.host===b.host){
+      if(u.path===b.path)return{score:100,why:'Exact backend endpoint match'};
+      if(!u.path||!b.path||u.path.startsWith(b.path+'/')||b.path.startsWith(u.path+'/'))return{score:80,why:'Same host, overlapping path'};
+      return{score:50,why:'Same host, different path: may be a separate service'};
+    }
+    const kw=kwScore(a,tokens(u?u.host.split('.')[0]+' '+u.path:q));
+    return kw.score?{score:Math.min(kw.score,45),why:'Related by keywords ('+kw.why.replace(/^.*?: /,'')+')'}:null;
+  }
+  const kw=kwScore(a,tokens(q));return kw.score?kw:null;
+}
+const tier=s=>s>=90?{k:'reuse',t:'Strong match',rec:'Reuse',cls:'ok',box:''}:s>=60?{k:'review',t:'Likely match',rec:'Review before creating',cls:'info',box:'rv'}:{k:'similar',t:'Possible overlap',rec:'Check with the owning team',cls:'wn',box:'warn'};
+
+// ================= OpenAPI generation (valid OpenAPI 3.0.3) =================
+const yq=s=>JSON.stringify(String(s??''));
+// Operation IDs: a custom ID (4th element) wins; otherwise one is generated from method + path.
+function opIds(a){
+  const used=new Set(a.ops.filter(o=>o[3]).map(o=>o[3]));
+  return a.ops.map(o=>{if(o[3])return o[3];const m=o[0].toLowerCase();let b=m+o[1].replace(/[{}]/g,'').split(/[^A-Za-z0-9]+/).filter(Boolean).map(w=>w[0].toUpperCase()+w.slice(1)).join('');if(b===m)b+='Root';let id=b,n=2;while(used.has(id))id=b+(n++);used.add(id);return id});
+}
+const cleanOp=o=>{const r=[o[0],String(o[1]||'').trim(),String(o[2]||'').trim()||'Operation'],id=String(o[3]||'').trim();if(id)r.push(id);return r};
+function opsErrors(ops){
+  const E=[],k=new Set(),ids=new Set();
+  ops.forEach(o=>{
+    const e=pathErr(o[1]);if(e)E.push(`Operation ${o[0]} ${o[1]}: path ${e}.`);
+    const x=o[0]+' '+o[1];if(k.has(x))E.push(x+' is listed twice.');k.add(x);
+    if(o[3]){if(!/^[A-Za-z][A-Za-z0-9_.-]{0,79}$/.test(o[3]))E.push(`Operation ID “${o[3]}” must start with a letter and use only letters, numbers, _ . -`);else if(ids.has(o[3].toLowerCase()))E.push(`Operation ID ${o[3]} is used twice.`);ids.add(o[3].toLowerCase())}
+  });
+  return E;
+}
+function swagger(a){
+  const oauth=a.auth==='oauth',paths={},ids=opIds(a);
+  a.ops.forEach(([m,p,s],i)=>{(paths[p]=paths[p]||[]).push([m.toLowerCase(),s,ids[i]])});
+  let y='openapi: 3.0.3\ninfo:\n'+
+    `  title: ${yq(a.name)}\n  version: ${yq(String(a.version||'v1').replace(/^v/i,'')+'.0.0')}\n  description: ${yq(a.desc||'Generated by Integration API Accelerator')}\n`+
+    `  contact:\n    name: ${yq(a.team||'Unassigned')}\n`+(a.contact?`    email: ${yq(a.contact)}\n`:'')+
+    `servers:\n  - url: ${yq(a.suffix||'/')}\n    description: "API gateway URL suffix"\n`+
+    `x-backend-endpoint: ${yq(a.backend)}\nx-lifecycle-status: ${yq(a.status||'active')}\n`+
+    (a.vault?`x-key-vault-named-value: ${yq(a.vault)}\n`:'')+
+    `security:\n  - ${oauth?'bearerAuth':'subscriptionKey'}: []\n`;
+  const P=Object.entries(paths);
+  y+=P.length?'paths:\n':'paths: {}\n';
+  P.forEach(([p,list])=>{
+    y+=`  ${yq(p)}:\n`;
+    const ps=[...new Set([...p.matchAll(/\{([^}]+)\}/g)].map(m=>m[1]))];
+    if(ps.length){y+='    parameters:\n';ps.forEach(n=>{y+=`      - name: ${yq(n)}\n        in: path\n        required: true\n        schema:\n          type: string\n`})}
+    list.forEach(([m,s,id])=>{
+      y+=`    ${m}:\n      summary: ${yq(s)}\n      operationId: ${yq(id)}\n`;
+      if(m==='post'||m==='put'||m==='patch')y+='      requestBody:\n        required: true\n        content:\n          application/json:\n            schema:\n              type: object\n';
+      y+='      responses:\n        "200":\n          description: Success\n          content:\n            application/json:\n              schema:\n                type: object\n'+
+         '        "400":\n          $ref: "#/components/responses/Error"\n        "401":\n          $ref: "#/components/responses/Error"\n        "500":\n          $ref: "#/components/responses/Error"\n';
+    });
+  });
+  y+='components:\n  securitySchemes:\n'+(oauth?'    bearerAuth:\n      type: http\n      scheme: bearer\n      bearerFormat: JWT\n':'    subscriptionKey:\n      type: apiKey\n      in: header\n      name: Ocp-Apim-Subscription-Key\n')+
+     '  responses:\n    Error:\n      description: Error\n      content:\n        application/json:\n          schema:\n            $ref: "#/components/schemas/Error"\n'+
+     '  schemas:\n    Error:\n      type: object\n      properties:\n        code:\n          type: string\n        message:\n          type: string\n';
+  return y;
+}
+function pathErr(p){
+  if(!p.startsWith('/'))return 'must start with “/”';
+  if(/\s/.test(p))return 'cannot contain spaces';
+  if(!/^\/[A-Za-z0-9\-._~{}\/]*$/.test(p))return 'has invalid characters';
+  if(p.includes('//'))return 'has an empty segment (“//”)';
+  if(/[{}]/.test(p.replace(/\{[A-Za-z_][A-Za-z0-9_]*\}/g,'')))return 'has an unmatched or empty {parameter}';
+  return '';
+}
+const sfxErr=s=>!s?'':/^\/[a-z0-9][a-z0-9\-._~\/]*$/i.test(s)?'':'Use letters, numbers, - . _ ~ and /, starting with /.';
+const sfxOwner=s=>{const n=normSfx(s);return n?store.apis.find(a=>normSfx(a.suffix)===n):null};
+
+// ================= Navigation =================
+const tabs=[['home','Home','⌂'],['discovery','API Discovery','⌕'],['creation','API Creation','+'],['docs','API Documentation','▤'],['arch','Architecture','◇'],['tpl','TDD Templates','⚙']];
+function render(){
+  $('#nav').innerHTML=tabs.filter(t=>t[0]!=='tpl'||isAdmin()).map(([k,l,ic])=>`<button class="${state.tab===k?'on':''}"${state.tab===k?' aria-current="page"':''} onclick="go('${k}')"><span class="ic" aria-hidden="true">${ic}</span>${l}</button>`).join('');
+  applySkin();togglePanel(false);drawGit();drawRole();drawSkin();
+  ({home:vHome,discovery:vDisc,creation:vCreate,docs:vDocs,arch:vArch,tpl:vTpl})[state.tab]();
+  window.scrollTo(0,0);
+}
+function go(t){
+  if(state.tab==='creation'&&t!=='creation'&&$('#n')&&!state.created)state.draft={...formApi(),jus:g('jus'),versionOf:state.cv};
+  state.tab=t;render();
+}
+function showDoc(i){if(i<0)return;state.docSel=i;go('docs')}
+function toast(m){const t=$('#toast');t.textContent=m;t.className='show';clearTimeout(t._h);t._h=setTimeout(()=>{t.className=''},2600)}
+
+// ================= Home =================
+const QUICK=[['ml.internal.contoso.com/inference','https://ml.internal.contoso.com/inference'],['nlp.contoso.com/sentiment','https://nlp.contoso.com/sentiment'],['new-service.contoso.com','https://new-service.contoso.com/api']];
+function quick(i){state.dmode='match';state.query=QUICK[i][1];go('discovery');search()}
+const met=(v,l,cls='',id='')=>`<div class="met ${cls}"><b${id?` id="${id}"`:''}>${esc(v)}</b><span>${l}</span></div>`;
+function setDD(v){const n=Math.max(0,Math.min(500,parseFloat(v)||0));store.devDays=n;save();const el=$('#saved');if(el)el.textContent=Math.round(store.metrics.reuse*n*10)/10}
+function vHome(){
+  const m=store.metrics,A=store.apis,ops=A.reduce((n,a)=>n+a.ops.length,0),dec=m.reuse+m.created;
+  $('#app').innerHTML=`
+  <div class="hd"><div><h1>Integration API Accelerator &amp; Reuse Advisor</h1><p class="sub">Check whether an API already exists for your backend before building a new one. Reuse first, create only when needed.</p></div>
+  <button class="btn" onclick="startTour()">▶ Guided demo</button></div>
+  <div class="quote"><div class="q-t">“Discover first. Reuse always. Build only what’s missing.”</div><div class="q-s">The reuse-first principle behind every API in this platform: one backend, one API, no duplicates.</div></div>
+  <section class="card ai-card" aria-labelledby="ai-home-title">
+    <div class="ai-head"><span class="ai-orb">✦</span><div><h2 id="ai-home-title" style="margin:0">IntegraIQ AI Assistant</h2><span class="mu small">Describe the business requirement. Find reusable APIs before designing a new one.</span></div><span class="ai-chip">AI-assisted workflow</span></div>
+    <label for="homeAiReq">What are you trying to integrate?</label>
+    <textarea id="homeAiReq" rows="3" placeholder="Example: I need to generate vector embeddings for product descriptions and search similar content.">${esc(state.aiRequirement||'')}</textarea>
+    <div class="ai-actions"><button class="btn" onclick="startAIFromHome()">✦ Find reusable APIs</button><button class="btn ghost sm" onclick="setHomeExample()">Use sample requirement</button></div>
+    <p class="ai-note">Prototype mode: local matching is used until an approved AI backend is configured. No API keys are stored in this HTML file.</p>
+  </section>
+  <section class="card" aria-labelledby="mh">
+    <div class="wf-h2"><h2 id="mh">Impact</h2><span class="mu small">Counters from usage in this browser</span></div>
+    ${repoHero()}
+    <div class="met-g">
+      ${met(new Set(A.map(a=>(parseUrl(a.backend)||{}).host)).size,'Distinct backend hosts')}${met(ops,'Operations catalogued')}${met(m.searches,'Reuse checks run')}${met(dec?Math.round(m.reuse/dec*100)+'%':'–','Reuse rate (reused ÷ decisions)')}
+      ${met(m.reuse,'Duplicate APIs avoided')}${met(Math.round(m.reuse*store.devDays*10)/10,'Est. dev-days saved','hl','saved')}${met(m.created,`New APIs created${m.createdDespite?` (${m.createdDespite} with justification)`:''}`)}${met(store.prs.length,'Specs awaiting review')}
+    </div>
+    <p class="met-n mu"><label for="dd">Assumption: dev-days to build and run one duplicate API</label><input id="dd" type="number" min="0" max="500" step="0.5" value="${store.devDays}" oninput="setDD(this.value)"><span>Replace with your organisation’s own figure.</span></p>
+  </section>
+  <div class="duo">
+   <div class="card wf">
+    <div class="wf-h"><h2>Workflow</h2><span class="pill">4 steps</span></div>
+    <div class="wf-r"><b>01 · Discover</b><span>Search backend, name or suffix</span></div>
+    <div class="wf-r"><b>02 · Decide</b><span>Reuse, extend or create</span></div>
+    <div class="wf-r"><b>03 · Create</b><span>Operations, owner, lifecycle</span></div>
+    <div class="wf-r"><b>04 · Publish</b><span>OpenAPI spec + pull request</span></div>
+    <p class="mu wf-n">The match engine recommends; you make the final call. Creating an API when a likely match exists needs a written justification.</p>
+   </div>
+   <div class="card wf">
+    <div class="wf-h"><h2>Quick start</h2><span class="pill">Try it</span></div>
+    <div class="u-s"><div class="u-t">Run a quick check</div><div class="chips">${QUICK.map((q,i)=>`<button class="chip" onclick="quick(${i})">${esc(q[0])}</button>`).join('')}</div></div>
+    <div class="u-s"><div class="u-t">Recently in catalog</div>${A.slice(-3).reverse().map(a=>`<button class="ur" onclick="showDoc(${A.indexOf(a)})"><span>${esc(a.name)} <span class="ver">${esc(a.version)}</span></span><b>${a.ops.length} ops</b></button>`).join('')}</div>
+    <p class="mu wf-n">Same backend means reuse the existing API and avoid duplicates.</p>
+   </div>
+  </div>
+  <div class="grid home-cards">
+    <div class="card"><div class="hc-ic" aria-hidden="true">🔍</div><h2>1. API Discovery</h2><p class="mu">Run a reuse check on a backend, name or suffix, or filter by operation ID, named value and backend patterns.</p><button class="btn" onclick="go('discovery')">Start discovery</button></div>
+    <div class="card"><div class="hc-ic" aria-hidden="true">➕</div><h2>2. API Creation</h2><p class="mu">No match, or a justified reason to build? Define the API and a valid OpenAPI spec is proposed as a pull request.</p><button class="btn ghost" onclick="go('creation')">Create API</button></div>
+    <div class="card"><div class="hc-ic" aria-hidden="true">📘</div><h2>3. API Documentation</h2><p class="mu">Owner, lifecycle, auth, operations and the OpenAPI spec for every API, plus TDD export from admin-managed templates.</p><button class="btn ghost" onclick="go('docs')">View docs</button></div>
+    <div class="card"><div class="hc-ic" aria-hidden="true">🏛️</div><h2>4. Architecture</h2><p class="mu">How each step maps to API Management, Git and CI in production, and who approves what.</p><button class="btn ghost" onclick="go('arch')">View design</button></div>
+  </div>`;
+}
+
+// ================= IntegraIQ AI-assisted discovery =================
+// When hosted by the companion FastAPI service, use its same-origin AI endpoint.
+window.INTEGRAIQ_AI_ENDPOINT = window.INTEGRAIQ_AI_ENDPOINT || (window.location.protocol.startsWith('http') ? '/api/ai' : '');
+function setHomeExample(){const q='Generate vector embeddings for text and documents so that similar content can be found.';const el=$('#homeAiReq');if(el)el.value=q;state.aiRequirement=q}
+function fillAIExample(q){const el=$('#aiReq');if(el)el.value=q;state.aiRequirement=q}
+function startAIFromHome(){const q=($('#homeAiReq')||{}).value||'';state.aiRequirement=q;state.tab='discovery';state.dmode='match';render();runAIRequirement()}
+function aiTokens(s){return [...new Set(tokens(String(s||'').replace(/\b(retrieve|fetch|find|get)\b/gi,'read').replace(/\b(generate|create|build)\b/gi,'make')))];}
+const AI_SYNONYMS={embedding:['vector','embed','similarity','semantic','vectorize'],search:['query','find','similarity','lookup','retrieve'],summarize:['summary','condense','shorten','document'],document:['file','content','text','report'],model:['prediction','inference','llm','chat'],prompt:['template','instruction','completion'],risk:['fraud','credit','score'],customer:['client','consumer','account'],address:['location','shipping','postal']};
+function aiExpandedTokens(q){const base=aiTokens(q),out=new Set(base);base.forEach(t=>Object.entries(AI_SYNONYMS).forEach(([k,vs])=>{if(t===k||vs.includes(t)){out.add(k);vs.forEach(v=>out.add(v))}}));return [...out]}
+function localAIScore(a,q){
+  const qBase=aiTokens(q),qAll=aiExpandedTokens(q),doc=aiTokens([a.name,a.desc,a.suffix,a.ops.map(o=>o.join(' ')).join(' ')].join(' '));
+  if(!qBase.length)return{score:0,matched:[],gaps:[]};
+  const matched=qAll.filter(t=>doc.includes(t)),direct=qBase.filter(t=>doc.includes(t));
+  const coverage=direct.length/Math.max(1,qBase.length),semantic=matched.length/Math.max(1,qAll.length);
+  let score=Math.round(Math.min(96,coverage*72+semantic*34));
+  // Give operation summaries and API descriptions more weight than incidental URL tokens.
+  const descTokens=aiTokens(a.desc+' '+a.ops.map(o=>o[2]).join(' '));
+  const descHits=qAll.filter(t=>descTokens.includes(t)).length;
+  score=Math.min(98,score+Math.min(12,descHits*2));
+  const gaps=qBase.filter(t=>!doc.includes(t)&&!qAll.some(x=>doc.includes(x)&&AI_SYNONYMS[x]?.includes(t)));
+  return{score,matched:[...new Set(matched)].slice(0,8),gaps:gaps.slice(0,5)};
+}
+function aiExplain(a,r){
+  const ops=a.ops.filter(o=>{const z=aiTokens(o[1]+' '+o[2]);return r.matched.some(t=>z.includes(t))});
+  return{ops:ops.slice(0,3),why:r.matched.length?`Related concepts found: ${r.matched.join(', ')}.`:'Some general relevance was found in the API description.',gaps:r.gaps};
+}
+async function runAIRequirement(){
+  const el=$('#aiReq');if(el)state.aiRequirement=el.value;
+  const q=String(state.aiRequirement||'').trim();if(q.length<12){toast('Please enter a little more detail about the business requirement');return}
+  const host=$('#aiResults');if(!host)return;
+  state.aiBusy=true;host.innerHTML='<div class="ai-loading"><span class="spin" style="display:inline-block;vertical-align:middle;margin-right:8px"></span>Understanding requirement and searching the API catalog…</div>';
+  // Optional production adapter: set window.INTEGRAIQ_AI_ENDPOINT in deployment config and expose POST /analyze.
+  try{
+    if(window.INTEGRAIQ_AI_ENDPOINT){
+      const response=await fetch(window.INTEGRAIQ_AI_ENDPOINT.replace(/\/$/,'')+'/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({requirement:q,catalog:store.apis.map(a=>({id:a.id,name:a.name,description:a.desc,backend:a.backend,suffix:a.suffix,team:a.team,status:a.status,operations:a.ops.map(o=>({method:o[0],path:o[1],summary:o[2]}))}))})});
+      if(!response.ok)throw new Error('AI service returned HTTP '+response.status);
+      const data=await response.json();state.aiAnalysis=data;state.aiResults=(data.matches||[]).map(m=>({i:store.apis.findIndex(a=>a.id===m.id),score:m.score||0,matched:m.matched_terms||[],gaps:m.gaps||[],why:m.reason||'AI relevance match'})).filter(x=>x.i>=0);drawAIResults();return;
+    }
+  }catch(e){host.innerHTML=`<div class="ai-warn">AI service unavailable: ${esc(e.message)}. Showing local demo recommendations instead.</div>`}
+  const scored=store.apis.map((a,i)=>({i,...localAIScore(a,q)})).filter(x=>x.score>=12).sort((a,b)=>b.score-a.score).slice(0,5);
+  state.aiResults=scored;state.aiAnalysis={mode:'local-demo',requirement:q,entities:aiTokens(q).slice(0,8)};drawAIResults();
+}
+function drawAIResults(){
+  const host=$('#aiResults');if(!host)return;const q=state.aiRequirement,results=state.aiResults||[];
+  const top=results[0],recommendation=!top||top.score<35?'CREATE':top.score>=68?'REUSE':'REVIEW';
+  const label=recommendation==='REUSE'?'Reuse candidate':recommendation==='REVIEW'?'Review / possibly extend':'No strong reuse candidate';
+  const summary=state.aiAnalysis?.summary|| (recommendation==='REUSE'?'An existing API appears to cover important parts of this requirement. Validate operation-level coverage with the owning team.':recommendation==='REVIEW'?'Some related capabilities exist. Check missing operations and ownership before deciding.':'No sufficiently relevant API was found in this sample catalog. A new API design may be appropriate after confirming the search scope.');
+  host.innerHTML=`<div class="ai-result"><div class="ai-result-top"><b>Requirement analysis</b><span class="ai-chip">${state.aiAnalysis?.mode==='local-demo'?'Local demo scoring':'AI service response'}</span></div>
+    <div class="ai-grid"><div class="ai-kv"><b>Intent</b>${esc((aiTokens(q).slice(0,3).join(', ')||'Not identified'))}</div><div class="ai-kv"><b>Catalog candidates</b>${results.length}</div><div class="ai-kv"><b>Recommendation</b>${label}</div></div>
+    <p style="margin:10px 0 0">${esc(summary)}</p></div>
+    ${results.length?results.map((r,n)=>{const a=store.apis[r.i],ex=aiExplain(a,r);return `<div class="ai-result" id="card-${r.i}"><div class="ai-result-top"><div><b>${esc(a.name)}</b> <span class="ver">${esc(a.version)}</span> ${n===0?'<span class="ai-chip">Top candidate</span>':''}</div><div class="ai-score">${r.score}%</div></div><p class="mu small" style="margin:4px 0">${esc(a.desc)}</p><p class="small"><b>Why relevant:</b> ${esc(r.why||ex.why)}</p><p class="small"><b>Potential gaps to validate:</b> ${esc((r.gaps||ex.gaps).length?(r.gaps||ex.gaps).join(', '):'No obvious keyword gaps; confirm actual business and data coverage.')}</p><p class="small"><b>Related operations:</b> ${esc(ex.ops.length?ex.ops.map(o=>o[0]+' '+o[1]+' – '+o[2]).join(' · '):a.ops.slice(0,2).map(o=>o[0]+' '+o[1]).join(' · '))}</p><div class="ai-actions"><button class="btn sm" onclick="showDoc(${r.i})">View API details</button><button class="btn ghost sm" onclick="openReuse(${r.i})">Reuse / extend</button></div></div>`}).join(''):'<div class="ai-warn">No relevant API was identified in the current sample catalog. Confirm that the catalog contains the relevant domain APIs before creating a new one.</div>'}
+    <div class="ai-result"><b>Next recommended action</b><p class="mu small">${recommendation==='REUSE'?'Review the top candidate and confirm its operation and data coverage.':recommendation==='REVIEW'?'Ask the owning team whether the existing API can be extended without breaking consumers.':'Draft a new API proposal, then complete backend, owning team and security details.'}</p><div class="ai-actions"><button class="btn" onclick="draftApiFromAI()">✦ Draft API design from requirement</button><button class="btn ghost sm" onclick="copyAIAnalysis()">Copy analysis</button></div></div>
+    <p class="ai-note">Scores in local demo mode are explainable keyword/concept heuristics, not production embedding similarity or validated AI confidence. Human review is required.</p>`;
+}
+function copyAIAnalysis(){const t=`Requirement: ${state.aiRequirement}\nCandidates:\n`+(state.aiResults||[]).map(r=>`${store.apis[r.i]?.name}: ${r.score}%`).join('\n');if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>toast('Analysis copied'),()=>toast('Copy unavailable'));else toast('Clipboard unavailable')}
+function draftApiFromAI(){
+  const q=state.aiRequirement.trim(),words=aiTokens(q).filter(x=>!['need','want','using','use','that','this','with','from','into','make','read','write'].includes(x));
+  const core=words.slice(-3).join('-')||'integration-resource',slugName=core.replace(/[^a-z0-9-]/g,'').replace(/-+/g,'-');
+  const title=slugName.split('-').map(x=>x.charAt(0).toUpperCase()+x.slice(1)).join(' ')+' API';
+  const related=state.aiResults?.[0],similar=related&&related.score>=35?store.apis[related.i]:null;
+  state.draft={name:title,version:'v1',suffix:'/api/'+slugName+'/v1',backend:'',desc:q,team:'',status:'beta',auth:'key',vault:'',codeRepo:'',jus:similar?`Reviewed ${similar.name}; its current operations do not fully satisfy this requirement. Please validate and refine this justification.`:''};
+  state.ops=[['GET','/'+slugName+'/{id}','Retrieve '+slugName.replace(/-/g,' ')]];
+  state.tab='creation';render();toast('AI-assisted draft populated. Review every field before creating the spec.');
+}
+
+// ================= Discovery =================
+const TRY=['https://ml.internal.contoso.com/inference','https://nlp.contoso.com/sentiment','https://new-service.contoso.com/api','Embeddings API','/ai/search/v1'];
+function tryQ(i){$('#q').value=TRY[i];search()}
+function setDMode(m){state.dmode=m;vDisc()}
+function vDisc(){
+  const md=state.dmode||'match';
+  $('#app').innerHTML=`
+  <h1>API Discovery</h1><p class="sub">Find existing APIs by endpoint, catalog metadata or business meaning before proposing a new API.</p>
+  <div class="card ai-card">
+    <div class="ai-head"><span class="ai-orb">✦</span><div><h2 style="margin:0">Search by business requirement</h2><span class="mu small">Describe the capability in plain English instead of knowing an API name or URL.</span></div><span class="ai-chip">Semantic discovery</span></div>
+    <label for="aiReq">Business requirement</label>
+    <textarea id="aiReq" rows="3" placeholder="e.g. Generate vector embeddings for text so that similar content can be found.">${esc(state.aiRequirement||'')}</textarea>
+    <div class="ai-actions"><button class="btn" onclick="runAIRequirement()">✦ Understand &amp; find APIs</button><button class="btn ghost sm" onclick="fillAIExample('Generate vector embeddings for text and documents so similar content can be found.')">Try embeddings example</button><button class="btn ghost sm" onclick="fillAIExample('Summarize long documents and retrieve the summary for a submitted document.')">Try summarization example</button></div>
+    <p class="ai-note">The current standalone demo uses explainable local relevance scoring. Connect the optional backend endpoint for Azure OpenAI and embedding-based semantic search.</p>
+    <div id="aiResults" aria-live="polite"></div>
+  </div>
+  <div class="seg" role="tablist" aria-label="Discovery mode"><button role="tab" aria-selected="${md==='match'}" class="${md==='match'?'on':''}" onclick="setDMode('match')">Reuse check</button><button role="tab" aria-selected="${md==='filter'}" class="${md==='filter'?'on':''}" onclick="setDMode('filter')">Advanced filter</button></div>
+  ${md==='filter'?fltHTML():`<div class="card searchbox">
+    <label for="q">Backend endpoint, API name or URL suffix</label>
+    <div class="row"><input id="q" value="${esc(state.query)}" placeholder="e.g. https://ml.internal.contoso.com/inference" onkeydown="if(event.key==='Enter')search()"><button class="btn" onclick="search()">Check</button></div>
+    <p class="try">Try: ${TRY.map((s,i)=>`<button class="lnk" onclick="tryQ(${i})"><code>${esc(s.replace('https://',''))}</code></button>`).join(' · ')}</p>
+  </div>
+  <div id="res" aria-live="polite"></div>`}`;
+  if(md==='filter'){drawFlt();if(state.fres)drawFres()}else if(state.searched)showResult();
+  if(state.aiAnalysis)drawAIResults();
+}
+function search(){
+  const el=$('#q');if(el)state.query=el.value;
+  const q=state.query.trim();if(!q)return;
+  state.results=store.apis.map((a,i)=>{const r=matchApi(a,q);return r&&r.score>=40?{i,...r}:null}).filter(Boolean).sort((x,y)=>y.score-x.score);
+  state.searched=true;state.reuseCounted=false;state.strong=state.results.some(r=>r.score>=60);
+  store.metrics.searches++;save();scan();
+}
+let scanT;
+function scan(){
+  const r=$('#res');if(!r)return;
+  const steps=['Normalising input','Scanning catalog ('+store.apis.length+' APIs)','Scoring backend, suffix, name and keyword matches'];
+  r.innerHTML=`<div class="card scan" aria-busy="true"><div class="sc-h"><span class="spin" aria-hidden="true"></span><b>Checking for an existing API…</b></div>${steps.map((s,i)=>`<div class="sc-s" id="sc${i}"><i></i>${s}</div>`).join('')}</div>`;
+  clearTimeout(scanT);let i=0;
+  const tick=()=>{const el=document.getElementById('sc'+i);if(el)el.className='sc-s on';i++;
+    scanT=setTimeout(()=>{const p=document.getElementById('sc'+(i-1));if(p)p.className='sc-s done';if(i<steps.length)tick();else showResult()},380)};
+  tick();
+}
+function finishScan(){clearTimeout(scanT);showResult()}
+function recText(r,a){
+  const t=tier(r.score).k;
+  if(t==='reuse')return `Reusing it avoids duplicating ${a.ops.length} operation${a.ops.length>1?'s':''}. Add any operation that’s missing.`;
+  if(t==='review')return `Check whether it covers your use case before creating a new API. Owner: ${esc(a.team)}.`;
+  return `Probably a different service, but worth a quick check with ${esc(a.team)}.`;
+}
+function resultCard(r){
+  const a=store.apis[r.i],t=tier(r.score),dep=a.status==='deprecated',si=a.successor?idxByName(a.successor):-1,ids=opIds(a);
+  const act=dep
+    ?`${si>=0?`<button class="btn" onclick="showDoc(${si})">View ${esc(a.successor)}</button>`:''}<button class="btn ghost" onclick="showDoc(${r.i})">View documentation</button>`
+    :`<button class="btn" onclick="openReuse(${r.i})">Reuse / extend this API</button><button class="btn ghost" onclick="showDoc(${r.i})">View documentation</button>`;
+  return `<div class="card found" id="card-${r.i}">
+    <div class="f-top"><div class="f-ic" aria-hidden="true">⚡</div>
+      <div class="f-ti"><span class="tag ${t.cls}">${t.t}</span> ${stBadge(a)}<h2>${esc(a.name)} <span class="ver">${esc(a.version)}</span></h2><p>${esc(a.desc)}</p></div>
+      <div class="f-cnt"><b>${r.score}%</b><span>match</span></div></div>
+    <div class="f-meta">
+      <div><i>Backend endpoint</i><code>${esc(a.backend)}</code></div>
+      <div><i>Gateway URL suffix</i><code>${esc(a.suffix)}</code></div>
+      <div><i>Owning team</i>${esc(a.team)}${a.contact?` · <a href="mailto:${esc(a.contact)}">${esc(a.contact)}</a>`:''}</div>
+      <div><i>Auth · consumers</i>${authLbl(a)} · ${a.consumers??0}</div>
+    </div>
+    <div class="f-rec ${dep?'warn':t.box}"><div class="f-rec-t"><b>Recommendation: ${dep?'Don’t build on this API':t.rec}</b><span>${esc(r.why)}</span></div><div class="bar"><i style="width:${r.score}%"></i></div>
+      <p>${dep?`This API is deprecated.${a.successor?` Use <b>${esc(a.successor)}</b> instead.`:''}`:recText(r,a)}</p></div>
+    <div class="f-h">Operations (${a.ops.length})</div>
+    <div class="f-ops">${a.ops.map((o,k)=>`<div class="f-op"><span class="m ${o[0]}">${o[0]}</span><code>${esc(o[1])}</code><code class="oid">${esc(ids[k])}</code><span class="mu">${esc(o[2])}</span></div>`).join('')}</div>
+    <div class="f-act">${act}</div>
+  </div>`;
+}
+function showResult(){
+  const res=$('#res');if(!res)return;const R=state.results||[];
+  if(!R.length){
+    res.innerHTML=`<div class="card"><span class="tag wn">No API found</span>
+      <h2 style="margin-top:10px">No existing API matches this</h2>
+      <p class="mu">Nothing in the catalog matches <code>${esc(state.query)}</code> by backend, suffix, name or keywords. You can create a new one.</p>
+      <button class="btn" onclick="createNew()">Create new API</button></div>`;return;
+  }
+  const top=R[0].score;
+  const head=top>=90?['ok','✔ An API already exists for this','Reuse it, or extend it with missing operations.']:top>=60?['info','Likely match found','Review before creating something new.']:['wn','Possible overlaps only','Nothing matches exactly.'];
+  res.innerHTML=`<div class="res-h"><span class="tag ${head[0]}">${head[1]}</span><span class="mu small">${head[2]} ${R.length} result${R.length>1?'s':''} for <code>${esc(state.query)}</code></span></div>`+
+    R.map(resultCard).join('')+
+    `<div class="card none-fit"><div><b>None of these fit?</b><p class="mu">${state.strong?'You can still create a new API. You’ll be asked why reuse doesn’t work; reviewers see it in the pull request.':'Create a new API for this backend.'}</p></div><button class="btn ${state.strong?'ghost':''}" onclick="createNew()">Create new API</button></div>`;
+}
+function markReuse(){if(!state.reuseCounted){state.reuseCounted=true;store.metrics.reuse++}}
+function openReuse(i,preset){
+  RN=preset||[['GET','/','']];
+  document.querySelectorAll('.rpanel[id^="rp-"]').forEach(x=>{if(x.id!=='rp-'+i)x.remove()});
+  const card=document.getElementById('card-'+i);if(!card)return;
+  let p=document.getElementById('rp-'+i);
+  if(!p){p=document.createElement('div');p.className='rpanel';p.id='rp-'+i;card.appendChild(p)}
+  drawReuse(i);p.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function drawReuse(i){
+  const p=document.getElementById('rp-'+i);if(!p)return;const a=store.apis[i];
+  p.innerHTML=`<h3>Reuse ${esc(a.name)}</h3>
+  <p class="mu">It has ${a.ops.length} operations today. Need something it doesn’t expose yet? Add operations below; the change is proposed to the spec repo as a pull request for ${esc(a.team)} to review.</p>
+  ${RN.map((o,j)=>`<div class="opline">
+    <select aria-label="Method" onchange="RN[${j}][0]=this.value">${METHODS.map(m=>`<option${m===o[0]?' selected':''}>${m}</option>`).join('')}</select>
+    <input aria-label="Path" value="${esc(o[1])}" placeholder="/path/{id}" oninput="RN[${j}][1]=this.value">
+    <input aria-label="Summary" value="${esc(o[2])}" placeholder="Summary" oninput="RN[${j}][2]=this.value">
+    <input aria-label="Operation ID (optional)" value="${esc(o[3]||'')}" placeholder="operationId (optional)" oninput="RN[${j}][3]=this.value">
+    <button class="btn ghost sm" aria-label="Remove operation" onclick="RN.splice(${j},1);drawReuse(${i})">✕</button></div>`).join('')}
+  <div class="row mt"><button class="btn ghost sm" onclick="RN.push(['GET','/','']);drawReuse(${i})">+ Add operation</button></div>
+  <div class="row mt"><button class="btn" onclick="commitOps(${i})">Add operations &amp; open pull request</button><button class="btn ghost" onclick="useAsIs(${i})">Use as is, no changes</button></div>
+  <div class="rerr err" role="alert"></div>`;
+}
+function openPR(title,a,kind){
+  const pr={n:store.nextPr++,title,branch:`${kind}/${slug(a.name)}-${a.version}`,file:a.specFile,sha:sha(),at:new Date().toLocaleString(),apiId:a.id,reviewers:a.team+' + API governance'};
+  store.prs.unshift(pr);a.lastPr=pr.n;a.sha=pr.sha;a.at=pr.at;return pr;
+}
+function prPanel(pr,a,add){
+  const i=store.apis.indexOf(a);
+  return `<span class="tag ok">✔ Pull request #${pr.n} opened (simulated)</span>
+  <p class="small"><code>${esc(store.git.repo)}</code> · <code>${esc(pr.branch)}</code> → <code>${esc(store.git.branch)}</code></p>
+  <p class="mu small">commit <code>${pr.sha}</code> · ${add?'update':'add'} <code>${esc(pr.file)}</code> · reviewers: ${esc(pr.reviewers)}</p>
+  ${add?`<ul class="ops">${add.map(o=>`<li><span class="m ${o[0]}">${o[0]}</span><code>${esc(o[1])}</code><span class="mu">${esc(o[2])}</span></li>`).join('')}</ul>`:''}
+  <div class="row mt"><button class="btn" onclick="showDoc(${i})">Open documentation</button></div>`;
+}
+function commitOps(i){
+  const p=document.getElementById('rp-'+i);if(!p)return;const a=store.apis[i],err=p.querySelector('.rerr');
+  const add=RN.filter(o=>String(o[1]||'').trim()).map(cleanOp);
+  if(!add.length){err.textContent='Add at least one operation with a path.';return}
+  const dup=add.find(o=>a.ops.some(x=>x[0]===o[0]&&x[1]===o[1]));
+  if(dup){err.textContent=`${dup[0]} ${dup[1]} already exists in this API.`;return}
+  const ex=new Set(opIds(a).map(x=>x.toLowerCase())),cl=add.find(o=>o[3]&&ex.has(o[3].toLowerCase()));
+  if(cl){err.textContent=`Operation ID ${cl[3]} already exists in this API.`;return}
+  const oe=opsErrors(a.ops.concat(add));if(oe.length){err.textContent=oe[0];return}
+  a.ops=a.ops.concat(add);
+  const pr=openPR(`Add ${add.length} operation${add.length>1?'s':''} to ${a.name}`,a,'update');
+  store.metrics.opsAdded+=add.length;markReuse();save();drawGit();toast(`Pull request #${pr.n} opened (simulated)`);
+  showResult();
+  const card=document.getElementById('card-'+i);
+  if(card){const q=document.createElement('div');q.className='rpanel';q.innerHTML=prPanel(pr,a,add);card.appendChild(q);q.scrollIntoView({behavior:'smooth',block:'nearest'})}
+}
+function useAsIs(i){markReuse();save();toast('Reuse recorded');showDoc(i)}
+function createNew(){
+  const q=(state.query||'').trim(),d={};
+  if(q[0]==='/')d.suffix=q;else if(looksUrl(q))d.backend=/^https?:\/\//i.test(q)?q:'https://'+q;else if(q)d.name=q;
+  state.draft=d;state.ops=[['GET','/health','Service health']];go('creation');
+}
+
+// ================= Creation =================
+function formApi(){
+  return{name:g('n'),version:(g('ver')||'v1').toLowerCase(),suffix:normSfx(g('s')),backend:g('b'),desc:g('ds'),team:g('tm'),contact:g('ct'),status:g('st')||'beta',auth:g('au')||'key',vault:g('v'),codeRepo:g('cr'),consumers:0,
+    ops:state.ops.filter(o=>String(o[1]||'').trim()).map(cleanOp)};
+}
+function vCreate(){
+  const d=state.draft||{};state.cv=d.versionOf||null;state.created=false;
+  const prev=state.cv?store.apis[idxById(state.cv)]:null;
+  $('#app').innerHTML=`
+  <h1>API Creation</h1><p class="sub">Review the AI-assisted draft, complete missing implementation details and generate an OpenAPI spec for pull-request review.</p>
+  ${state.aiRequirement?`<div class="note"><b>Source requirement:</b> ${esc(state.aiRequirement)} <button class="lnk" onclick="state.tab='discovery';render()">Return to AI discovery</button></div>`:''}
+  ${prev?`<div class="note">Creating <b>${esc(d.version)}</b> of <b>${esc(prev.name)}</b>. ${esc(prev.version)} stays in the catalog until it is deprecated.</div>`:''}
+  <div class="stp" id="stp"></div>
+  <div class="cg"><div class="cg-l">
+  <div class="card">
+    <h2>API details</h2>
+    <div class="row"><div><label for="n">API name *</label><input id="n" value="${esc(d.name||'')}" placeholder="Sentiment Analysis API"></div>
+      <div class="w-sm"><label for="ver">Version *</label><input id="ver" value="${esc(d.version||'v1')}" placeholder="v1"></div></div>
+    <label for="s">Gateway URL suffix *</label><input id="s" value="${esc(d.suffix||'')}" placeholder="/ai/sentiment/v1"><div id="serr"></div>
+    <label for="b">Backend endpoint *</label><input id="b" value="${esc(d.backend||'')}" placeholder="https://sentiment.contoso.com/v1">
+    <div id="dup" aria-live="polite"></div>
+    <label for="ds">Description</label><input id="ds" value="${esc(d.desc||'')}" placeholder="What does this API do?">
+    <div class="row"><div><label for="tm">Owning team *</label><input id="tm" value="${esc(d.team||'')}" placeholder="NLP Services"></div>
+      <div><label for="ct">Team contact email</label><input id="ct" type="email" value="${esc(d.contact||'')}" placeholder="nlp-services@contoso.com"></div></div>
+    <div class="row"><div><label for="st">Lifecycle</label><select id="st"><option value="beta">Beta</option><option value="active">Active</option></select></div>
+      <div><label for="au">Authentication</label><select id="au"><option value="key">Subscription key</option><option value="oauth">OAuth 2.0 (bearer JWT)</option></select></div></div>
+    <div class="row"><div><label for="v">Key Vault named value</label><input id="v" value="${esc(d.vault||'')}" placeholder="kv-ai-prod/sentiment-key"></div>
+      <div><label for="cr">Service code repo</label><input id="cr" value="${esc(d.codeRepo||'')}" placeholder="https://github.com/contoso-ai/sentiment-service"></div></div>
+  </div>
+  <div class="card hide" id="jusc">
+    <h2>Why not reuse?</h2>
+    <p class="mu small" style="margin-top:-6px">A likely match already exists. Your reason is added to the pull request for reviewers.</p>
+    <label for="jus">Justification *</label>
+    <textarea id="jus" rows="3" placeholder="e.g. Different data-residency requirements, and the existing API can’t be extended because…">${esc(d.jus||'')}</textarea>
+  </div>
+  <div class="card">
+    <h2>Operations</h2><div id="opl"></div><div id="operr" class="err"></div>
+    <button class="btn ghost sm mt" onclick="addOp()">+ Add operation</button>
+  </div>
+  <div class="card">
+    <h2>Spec repository</h2>
+    <div class="row"><div><label for="r">Repository URL</label><input id="r" value="${esc(store.git.repo)}"></div>
+      <div><label for="br">Base branch</label><input id="br" value="${esc(store.git.branch)}"></div></div>
+    <p class="mu small" style="margin:10px 0 0">The spec is proposed as <code id="sf"></code> on a new branch, through a pull request. Nothing is committed directly to the base branch.</p>
+    <div class="row mt"><button class="btn" onclick="generate()">Generate spec &amp; open pull request</button></div>
+    <div id="err" class="err" role="alert"></div>
+  </div>
+  </div><div class="cg-r"><div class="card live"><div class="wf-h2"><h2>Live OpenAPI preview</h2><span class="pill">updates as you type</span></div><pre id="lv"></pre></div></div></div>
+  <div id="out"></div>`;
+  $('#st').value=d.status==='active'?'active':'beta';$('#au').value=d.auth==='oauth'?'oauth':'key';
+  if(d.suffix)$('#s').dataset.t='1';
+  drawOps();livePrev();
+}
+function drawOps(){
+  const el=$('#opl');if(!el)return;
+  el.innerHTML=state.ops.map((o,i)=>`<div class="opline">
+    <select aria-label="Method" onchange="state.ops[${i}][0]=this.value">${METHODS.map(m=>`<option${m===o[0]?' selected':''}>${m}</option>`).join('')}</select>
+    <input aria-label="Path" value="${esc(o[1])}" placeholder="/path/{id}" oninput="state.ops[${i}][1]=this.value">
+    <input aria-label="Summary" value="${esc(o[2])}" placeholder="Summary" oninput="state.ops[${i}][2]=this.value">
+    <input aria-label="Operation ID (optional)" value="${esc(o[3]||'')}" placeholder="operationId (optional)" oninput="state.ops[${i}][3]=this.value">
+    <button class="btn ghost sm" aria-label="Remove operation" onclick="state.ops.splice(${i},1);drawOps();livePrev()">✕</button></div>`).join('')||'<p class="mu small">No operations yet.</p>';
+}
+function addOp(){state.ops.push(['GET','/','']);drawOps();livePrev()}
+function dupCheck(a){
+  const out=[];
+  store.apis.forEach((x,i)=>{let best=null;[a.backend,a.name].forEach(q=>{if(!q)return;const r=matchApi(x,q);if(r&&(!best||r.score>best.score))best=r});if(best&&best.score>=40)out.push({i,id:x.id,...best})});
+  out.sort((p,q)=>q.score-p.score);
+  const el=$('#dup');
+  if(el)el.innerHTML=out.length?`<div class="dupbox"><b>Similar APIs in the catalog</b>${out.slice(0,4).map(m=>{const x=store.apis[m.i];return `<button type="button" class="dupr" onclick="showDoc(${m.i})"><span class="dn">${esc(x.name)} <span class="ver">${esc(x.version)}</span>${m.id===state.cv?' <em>(previous version)</em>':''} ${x.status==='deprecated'?stBadge(x):''}</span><b>${m.score}%</b><span class="mu dw">${esc(m.why)}</span></button>`}).join('')}</div>`:'';
+  return out;
+}
+function livePrev(){
+  const lv=$('#lv');if(!lv)return;
+  const a=formApi();
+  lv.textContent=swagger({...a,name:a.name||'Untitled API',suffix:a.suffix||'/'});
+  $('#sf').textContent=specPath(a);
+  const se=sfxErr(a.suffix),own=sfxOwner(a.suffix),s=$('#s');
+  s.style.borderColor=(se||own)?'var(--er)':'';
+  $('#serr').innerHTML=own?`<p class="serr">✖ URL suffix <code>${esc(own.suffix)}</code> is already used by “${esc(own.name)} ${esc(own.version)}”. Every API needs a unique suffix.</p>`:se?`<p class="serr">✖ ${se}</p>`:'';
+  const oe=opsErrors(a.ops);
+  $('#operr').textContent=oe[0]||'';
+  const M=dupCheck(a),strong=M.some(m=>m.score>=60&&m.id!==state.cv);
+  $('#jusc').classList.toggle('hide',!strong);
+  const st=[['Details',a.name&&a.suffix&&!se&&!own&&isHttpUrl(a.backend)&&a.team],['Operations',a.ops.length&&!oe.length],['Reuse check',!strong||g('jus').length>=20],['Spec repo',safeUrl(g('r'))&&g('br')]];
+  $('#stp').innerHTML=st.map((x,i)=>`<span class="sp ${x[1]?'done':''}"><i>${x[1]?'✔':i+1}</i>${x[0]}</span>`).join('<em></em>');
+}
+function onCreateInput(e){
+  if(state.tab!=='creation')return;const t=e.target;if(!t.closest||!t.closest('#app'))return;
+  if(t.id==='s')t.dataset.t='1';
+  if(t.id==='n'||t.id==='ver'){const s=$('#s');if(s&&!s.dataset.t){const v=slug(g('n').replace(/\bapis?\b/ig,''));s.value=v?`/ai/${v}/${(g('ver')||'v1').toLowerCase()}`:''}}
+  livePrev();
+}
+document.addEventListener('input',onCreateInput);document.addEventListener('change',onCreateInput);
+function generate(){
+  const a=formApi(),E=[];
+  if(!a.name)E.push('API name is required.');
+  if(!/^v\d+$/.test(a.version))E.push('Version must look like v1, v2, …');
+  if(!a.suffix)E.push('Gateway URL suffix is required.');
+  else{const se=sfxErr(a.suffix);if(se)E.push('URL suffix: '+se);const o=sfxOwner(a.suffix);if(o)E.push(`URL suffix ${o.suffix} is already used by ${o.name} ${o.version}.`)}
+  if(!isHttpUrl(a.backend))E.push('Backend endpoint must be a full http(s) URL.');
+  if(!a.team)E.push('Owning team is required.');
+  if(a.contact&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.contact))E.push('Contact email looks invalid.');
+  if(a.codeRepo&&!safeUrl(a.codeRepo))E.push('Service code repo must be an https:// URL.');
+  if(!a.ops.length)E.push('Add at least one operation.');
+  E.push(...opsErrors(a.ops));
+  if(a.name&&store.apis.some(x=>x.name.toLowerCase()===a.name.toLowerCase()&&x.version===a.version))E.push(`${a.name} ${a.version} already exists. Use “New version” on its documentation page instead.`);
+  const repo=safeUrl(g('r')),br=g('br');
+  if(!repo)E.push('Spec repository must be an https:// URL.');if(!br)E.push('Base branch is required.');
+  const strong=dupCheck(a).filter(m=>m.score>=60&&m.id!==state.cv),jus=g('jus');
+  if(strong.length&&jus.length<20)E.push('A likely match exists: explain why it can’t be reused (at least 20 characters).');
+  if(E.length){$('#err').innerHTML='<ul>'+E.map(e=>`<li>${esc(e)}</li>`).join('')+'</ul>';toast('Please fix the issues listed');return}
+  $('#err').innerHTML='';
+  store.git={repo,branch:br};
+  Object.assign(a,{id:'api-'+(store.nextId++),origin:'created',specFile:specPath(a),versionOf:state.cv||null,justification:strong.length?jus:'',similar:strong.map(m=>store.apis[m.i].name+' '+store.apis[m.i].version)});
+  store.apis.push(a);
+  const pr=openPR(`Add ${a.name} ${a.version}`,a,'add');
+  store.metrics.created++;if(strong.length)store.metrics.createdDespite++;save();
+  drawGit();toast(`Pull request #${pr.n} opened (simulated)`);
+  state.draft=null;state.created=true;state.ops=[['GET','/health','Service health']];state.docSel=store.apis.length-1;
+  $('#out').innerHTML=`<div class="card">${prPanel(pr,a)}${a.justification?`<p class="small"><b>Justification in PR:</b> ${esc(a.justification)}</p>`:''}<pre>${esc(swagger(a))}</pre></div>`;
+  $('#out').scrollIntoView({behavior:'smooth'});
+}
+
+// ================= Documentation =================
+function selectDoc(j){state.docSel=j;vDocs()}
+function filterDocs(v){state.docQ=v;v=v.toLowerCase().trim();document.querySelectorAll('#picks .pick').forEach(el=>{el.hidden=!!v&&!el.dataset.k.includes(v)})}
+function vDocs(){
+  const A=store.apis,i=Math.max(0,Math.min(state.docSel,A.length-1)),a=A[i];state.docSel=i;
+  const si=a.successor?idxByName(a.successor):-1,prev=a.versionOf?A[idxById(a.versionOf)]:null;
+  const svc=safeUrl(a.codeRepo),ids=opIds(a),tp=curTpl(),tbd=tbdCount(a,tp),md=a.tdd||{};
+  $('#app').innerHTML=`
+  <h1>API Documentation</h1><p class="sub">Owner, lifecycle, operations and OpenAPI spec for every API in the catalog.</p>
+  <label for="dsq" class="sr">Search APIs</label><input id="dsq" class="dsearch" value="${esc(state.docQ)}" placeholder="Search APIs by name, team or backend…" oninput="filterDocs(this.value)">
+  <div class="grid" id="picks">${A.map((x,j)=>`<button class="card pick ${j===i?'on':''}" aria-pressed="${j===i}" data-k="${esc((x.name+' '+x.team+' '+x.backend).toLowerCase())}" onclick="selectDoc(${j})"><b>${esc(x.name)}</b> <span class="ver">${esc(x.version)}</span><br><span class="mu small">${x.ops.length} operations · ${esc(x.team)}</span><br>${stBadge(x)} ${x.origin==='created'?'<span class="tag ok">new</span>':''}</button>`).join('')}</div>
+  ${a.status==='deprecated'?`<div class="note warn"><b>Deprecated.</b> Don’t build new integrations on this API.${si>=0?` <button class="lnk" onclick="selectDoc(${si})">Use ${esc(a.successor)} →</button>`:''}</div>`:''}
+  <div class="card">
+    <div class="wf-h2"><div><h2>${esc(a.name)} <span class="ver">${esc(a.version)}</span> ${stBadge(a)}</h2><p class="mu" style="margin:4px 0 0">${esc(a.desc||'')}</p></div>
+    <button class="btn ghost sm" onclick="newVersion(${i})">+ New version</button></div>
+    <div class="scroll"><table>
+      <tr><th>Backend endpoint</th><td><code>${esc(a.backend)}</code></td></tr>
+      <tr><th>Gateway URL suffix</th><td><code>${esc(a.suffix)}</code></td></tr>
+      <tr><th>Owning team</th><td>${esc(a.team)}${a.contact?` · <a href="mailto:${esc(a.contact)}">${esc(a.contact)}</a>`:''}</td></tr>
+      <tr><th>Authentication</th><td>${authLbl(a)}</td></tr>
+      <tr><th>Consumers</th><td>${a.consumers??0}</td></tr>
+      <tr><th>Operations</th><td>${a.ops.length}</td></tr>
+      <tr><th>Spec file</th><td><code>${esc(a.specFile)}</code> in <code>${esc(store.git.repo)}</code>${a.lastPr?` · last change PR #${a.lastPr} (open) · ${esc(a.at)}`:''}</td></tr>
+      <tr><th>Service code repo</th><td>${svc?`<a href="${esc(svc)}" target="_blank" rel="noopener noreferrer"><code>${esc(svc)}</code></a>`:'<span class="mu">not set</span>'}</td></tr>
+      <tr><th>Key Vault named value</th><td>${a.vault?`<code>${esc(a.vault)}</code>`:'<span class="mu">none</span>'}</td></tr>
+      <tr><th>Source</th><td>${a.origin==='created'?'Created with API Creation':'Existing API'}${prev?` · new version of ${esc(prev.name)} ${esc(prev.version)}`:''}</td></tr>
+      ${a.justification?`<tr><th>Why not reuse</th><td>${esc(a.justification)}${a.similar&&a.similar.length?` <span class="mu">(similar: ${esc(a.similar.join(', '))})</span>`:''}</td></tr>`:''}
+    </table></div>
+  </div>
+  <div class="card"><h2>Operations</h2><div class="scroll"><table><tr><th>Method</th><th>Path</th><th>Operation ID</th><th>Summary</th></tr>
+    ${a.ops.map((o,k)=>`<tr><td><span class="m ${o[0]}">${o[0]}</span></td><td><code>${esc(a.suffix+o[1])}</code></td><td><code class="oid">${esc(ids[k])}</code></td><td>${esc(o[2])}</td></tr>`).join('')}</table></div></div>
+  <div class="card" id="tddc">
+    <div class="wf-h2"><h2>Technical design document (TDD)</h2>${isAdmin()?`<button class="lnk" onclick="go('tpl')">Manage templates →</button>`:''}</div>
+    <p class="mu small" style="margin:-4px 0 12px;max-width:680px">Generate a TDD pre-filled from this API’s OpenAPI spec. Choose a template; anything the spec can’t answer is marked <span class="tbd-k">[TBD]</span> for the team to complete. An AI-backed deployment can additionally draft narrative sections, test scenarios and governance findings for human review.</p>
+    <label for="tpls">Template</label>
+    <select id="tpls" onchange="setTpl(this.value,${i})">${store.templates.filter(t=>t.enabled!==false).map(t=>`<option value="${esc(t.id)}"${t.id===tp.id?' selected':''}>${esc(t.name)}${t.id===store.defaultTpl?' (default)':''}</option>`).join('')}</select>
+    <p class="mu small" id="tpld" style="margin:6px 0 0">${esc(tp.desc||'')}</p>
+    <details class="tdm"${Object.values(md).some(v=>v)?' open':''}><summary>Document details <span class="mu" style="font-weight:400">(optional: author, JIRA, source and target systems)</span></summary>
+      <div class="row">${[['author','Author name','Your name'],['role','Author role','e.g. APIM Developer'],['email','Author email','name@company.com']].map(f=>`<div><label for="tm-${f[0]}">${f[1]}</label><input id="tm-${f[0]}" value="${esc(md[f[0]]||'')}" placeholder="${f[2]}" oninput="setMeta(${i},'${f[0]}',this.value)"></div>`).join('')}</div>
+      <div class="row">${[['jira','JIRA ticket(s)','e.g. INT-1379'],['consumer','Consumer / source system','e.g. Syndigo'],['target','Target system','e.g. PIM']].map(f=>`<div><label for="tm-${f[0]}">${f[1]}</label><input id="tm-${f[0]}" value="${esc(md[f[0]]||'')}" placeholder="${f[2]}" oninput="setMeta(${i},'${f[0]}',this.value)"></div>`).join('')}</div>
+    </details>
+    <div class="row mt" style="align-items:center"><button class="btn ghost sm" onclick="tddPreview(${i},this)">Preview</button><button class="btn sm" onclick="tddDoc(${i})">Download Word (.doc)</button><button class="btn ghost sm" onclick="tddMdDl(${i})">Markdown (.md)</button><span class="mu small" id="tbdn">${tbd} items marked [TBD]</span></div>
+    <div id="tddp"></div>
+  </div>
+  <div class="card"><div class="wf-h2"><h2>OpenAPI 3.0 spec</h2><div class="row" style="flex:none"><button class="btn ghost sm" onclick="copyYaml()">Copy</button><button class="btn ghost sm" onclick="downloadYaml(${i})">Download .yaml</button></div></div><pre id="yml" style="margin-top:0">${esc(swagger(a))}</pre></div>`;
+  if(state.docQ)filterDocs(state.docQ);
+}
+function copyYaml(){
+  const el=$('#yml');if(!el)return;
+  const done=()=>toast('Spec copied to clipboard');
+  const fb=()=>{try{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy')?done():toast('Select the text and press Ctrl+C')}catch(e){toast('Select the text and press Ctrl+C')}};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(el.textContent).then(done,fb);else fb();
+}
+function dl(name,content,type){
+  try{const u=URL.createObjectURL(new Blob([content],{type}));const l=document.createElement('a');l.href=u;l.download=name;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);toast('Downloaded '+name)}
+  catch(e){toast('Download isn’t available here')}
+}
+function downloadYaml(i){const a=store.apis[i];dl(`${slug(a.name)}-${a.version}.openapi.yaml`,swagger(a),'text/yaml')}
+function newVersion(i){
+  const a=store.apis[i];let n=(parseInt(String(a.version).replace(/\D/g,''),10)||1)+1,v='v'+n;
+  while(store.apis.some(x=>x.name===a.name&&x.version===v))v='v'+(++n);
+  const suffix=/\/v\d+$/i.test(a.suffix)?a.suffix.replace(/\/v\d+$/i,'/'+v):a.suffix+'/'+v;
+  state.draft={name:a.name,version:v,suffix,backend:a.backend,desc:a.desc,team:a.team,contact:a.contact,status:'beta',auth:a.auth,vault:a.vault,codeRepo:a.codeRepo,versionOf:a.id};
+  state.ops=a.ops.map(o=>[...o]);go('creation');
+}
+
+// ================= Architecture =================
+function vArch(){
+  const flow=[['👩‍💻','Developer','Searches before building'],['⚡','Accelerator','Scores catalog matches'],['🗂️','API Management','Live catalog (read)'],['⎇','Spec repo PR','OpenAPI on a feature branch'],['✅','CI + review','Lint, breaking-change check, CODEOWNERS'],['🚀','Deploy','Pipeline publishes to the gateway']];
+  const rows=[
+    ['Catalog source','Sample APIs kept in this browser','Read live from Azure API Management (APIs, operations, named values) through its management REST API'],
+    ['Matching','Rule-based scores: exact URL, host and path, suffix, name and keyword overlap','Same rules, plus semantic similarity using the Embeddings API over descriptions and operations'],
+    ['Publishing','Simulated commit and pull request','GitHub REST API opens a pull request from a feature branch in the spec repo'],
+    ['Review','Justification captured when a likely match exists','Pull request template plus CODEOWNERS approval by the owning team and API governance'],
+    ['Validation','Generated spec is valid OpenAPI 3.0.3','CI lint (for example Spectral), unique-suffix check and breaking-change diff against the previous version'],
+    ['Deployment','Not included','Merge triggers the existing CI/CD (APIOps) pipeline to publish to API Management'],
+    ['Secrets','Only the Key Vault named-value name is recorded','API Management named value referencing Key Vault; the tool never handles secret values'],
+    ['TDD templates','Admins add, import and edit templates in this browser; users pick one when exporting (Word or Markdown)','Templates stored centrally (spec repo or SharePoint), managed by the API governance group; TDDs also published to the wiki on merge'],
+    ['Metrics','Counters in this browser','Event log feeding a dashboard: reuse rate, duplicates avoided, time to publish']
+  ];
+  $('#app').innerHTML=`
+  <h1>Architecture &amp; governance</h1><p class="sub">How each step in this demo maps to production systems, and who approves what.</p>
+  <div class="card"><h2>Production flow</h2><div class="flow">${flow.map((s,i)=>`${i?'<span class="fa" aria-hidden="true">→</span>':''}<div class="fs"><span aria-hidden="true">${s[0]}</span><b>${s[1]}</b><small>${s[2]}</small></div>`).join('')}</div></div>
+  <div class="card"><h2>Demo vs production</h2><div class="scroll"><table class="cmp"><tr><th>Capability</th><th>In this demo</th><th>In production</th></tr>${rows.map(r=>`<tr><td>${r[0]}</td><td class="mu">${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</table></div></div>
+  <div class="duo2">
+    <div class="card"><h2>Governance rules</h2><ul class="lst">
+      <li>Creating an API when a match of 60% or more exists requires a written justification, carried into the pull request.</li>
+      <li>Every new spec or change is a pull request. Nothing is committed to the base branch directly.</li>
+      <li>The owning team and API governance approve through CODEOWNERS.</li>
+      <li>Gateway URL suffixes are unique across the catalog.</li>
+      <li>Deprecated APIs are flagged in discovery and point to their successor.</li>
+      <li>Secrets never pass through the tool; only Key Vault named-value names are stored.</li>
+      <li>Only admins (the API governance group) can add, change or hide TDD templates; end users choose from the published list.</li></ul></div>
+    <div class="card"><h2>Repository model</h2><ul class="lst">
+      <li>One spec repository for every API: <code>apis/&lt;api-name&gt;/&lt;version&gt;/openapi.yaml</code>.</li>
+      <li>Service code stays in each team’s own repository, linked as “Service code repo”.</li>
+      <li>One place to review, lint and audit every API contract.</li>
+      <li>New versions sit beside old ones, so consumers can migrate before the old version is retired.</li></ul></div>
+  </div>
+  <div class="card"><h2>Roadmap</h2><ul class="lst">
+    <li><b>Semantic matching:</b> use the Embeddings API to find overlaps that share no keywords.</li>
+    <li><b>Import operations</b> from a backend’s existing OpenAPI document instead of typing them.</li>
+    <li><b>AI assistance:</b> suggested operation summaries and likely missing operations.</li>
+    <li><b>Consumer onboarding:</b> request a subscription from the documentation page.</li>
+    <li><b>Gateway analytics</b> replace browser counters with real usage data.</li></ul></div>`;
+}
+
+// ================= Home: repo summary =================
+function repoHero(){
+  const A=store.apis,c=s=>A.filter(a=>a.status===s).length,pend=A.filter(a=>a.origin==='created').length,teams=new Set(A.map(a=>a.team)).size;
+  const r=store.git.repo.replace(/^https:\/\/(www\.)?github\.com\//i,'');
+  return `<div class="repo-hero"><div class="rh-n"><b>${A.length}</b><span>APIs listed in the repo</span></div>
+  <div class="rh-i"><div class="u-t" style="margin:0 0 2px">Spec repository</div><code>${esc(r)}</code> · <code>${esc(store.git.branch)}</code>
+    <div class="rh-b"><span class="tag st-active">${c('active')} active</span><span class="tag st-beta">${c('beta')} beta</span><span class="tag st-deprecated">${c('deprecated')} deprecated</span><span class="tag info">${teams} owning teams</span>${pend?`<span class="tag wn">${pend} in open pull requests</span>`:''}</div></div>
+  <button class="btn ghost sm" onclick="go('docs')">Browse all</button></div>`;
+}
+
+// ================= Discovery: advanced filter =================
+const FF={
+  API_NAME:['API name',a=>[a.name]],
+  OPERATION_ID:['Operation ID',(a,ids)=>ids,1],
+  NAMED_VALUE:['Named value (Key Vault)',a=>[a.vault||'']],
+  BACKEND:['Backend endpoint',a=>[a.backend]],
+  URL_SUFFIX:['Gateway URL suffix',a=>[a.suffix]],
+  PATH:['Operation path',a=>a.ops.map(o=>o[1]),1],
+  METHOD:['Operation method',a=>a.ops.map(o=>o[0]),1],
+  TEAM:['Owning team',a=>[a.team]],
+  STATUS:['Lifecycle status',a=>[a.status]],
+  VERSION:['Version',a=>[a.version]]
+};
+const FA={NAME:'API_NAME',APINAME:'API_NAME',OPERATIONID:'OPERATION_ID',OPID:'OPERATION_ID',NAMEDVALUE:'NAMED_VALUE',KEY_VAULT:'NAMED_VALUE',KEYVAULT:'NAMED_VALUE',SUFFIX:'URL_SUFFIX',LIFECYCLE:'STATUS',BACKEND_URL:'BACKEND'};
+const FPH={OPERATION_ID:'TEST123',API_NAME:'%Search%',NAMED_VALUE:'kv-ai-prod/%',BACKEND:'%ZETA%',URL_SUFFIX:'/ai/%',PATH:'/models%',METHOD:'POST',TEAM:'%NLP%',STATUS:'active',VERSION:'v1'};
+const FEX=["OPERATION_ID = 'TEST123'","BACKEND = '%ZETA%'","NAMED_VALUE = 'kv-ai-prod/%'","API_NAME = '%Search%' OR API_NAME = '%Embed%'","OPERATION_ID = 'TEST123' AND BACKEND = '%ZETA%'"];
+function like(val,pat){
+  const re=new RegExp('^'+String(pat).split('%').map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('.*')+'$','i');
+  return re.test(String(val||''));
+}
+const qExpr=()=>state.flt.filter(c=>c.v.trim()).map(c=>`${c.f} ${c.op} '${c.v.trim().replace(/'/g,"''")}'`).join(` ${state.fjoin} `);
+function parseQ(s){
+  s=String(s||'').trim();if(!s)return{conds:[],join:'AND'};
+  const re=/\s*([A-Za-z_]+(?: [A-Za-z_]+)?)\s*(!=|<>|=|NOT\s+LIKE|LIKE)\s*'((?:[^']|'')*)'\s*(?:(AND|OR)\b|$)/iy;
+  const conds=[],joins=new Set();let pos=0;
+  while(pos<s.length){
+    re.lastIndex=pos;const m=re.exec(s);
+    if(!m)return{err:`Couldn’t read the query near “${s.slice(pos,pos+30)}”. Write conditions as FIELD = 'value', joined with AND or OR.`};
+    let f=m[1].toUpperCase().replace(/\s+/g,'_');f=FA[f]||f;
+    if(!FF[f])return{err:`Unknown field ${m[1]}. Use one of: ${Object.keys(FF).join(', ')}.`};
+    const o=m[2].toUpperCase().replace(/\s+/g,' ');
+    conds.push({f,op:(o==='!='||o==='<>'||o==='NOT LIKE')?'!=':'=',v:m[3].replace(/''/g,"'")});
+    if(m[4])joins.add(m[4].toUpperCase());
+    pos=re.lastIndex;
+    if(m[4]&&pos>=s.length)return{err:`The query ends with ${m[4].toUpperCase()}. Add another condition after it.`};
+  }
+  if(joins.size>1)return{err:'Use either AND or OR between conditions, not both.'};
+  return{conds,join:[...joins][0]||'AND'};
+}
+function fltHTML(){
+  return `<div class="card searchbox">
+  <label for="fq">Filter query</label>
+  <div class="row"><input id="fq" class="mono" spellcheck="false" value="${esc(qExpr())}" placeholder="OPERATION_ID = 'TEST123' AND BACKEND = '%ZETA%'" onkeydown="if(event.key==='Enter')applyQuery()"><button class="btn" onclick="applyQuery()">Run</button></div>
+  <div id="fqerr" class="err" role="alert"></div>
+  <p class="try">Examples: ${FEX.map((s,i)=>`<button class="lnk" onclick="setQ(FEX[${i}])"><code>${esc(s)}</code></button>`).join(' · ')}</p>
+  <div class="fb">
+    <div class="fb-h"><b>Filter builder</b><span>Match <select id="fj" aria-label="Combine conditions" onchange="state.fjoin=this.value;syncQ()"><option value="AND">all conditions (AND)</option><option value="OR">any condition (OR)</option></select></span></div>
+    <div id="frows"></div>
+    <div class="row mt"><button class="btn ghost sm" onclick="addF()">+ Add condition</button><button class="btn sm" onclick="runFilter()">Apply filters</button><button class="btn ghost sm" onclick="clearF()">Clear</button></div>
+    <p class="mu small" style="margin:12px 0 0">Use <code>%</code> as a wildcard: <code>'%ZETA%'</code> means contains, <code>'ZETA%'</code> starts with. Without <code>%</code> the match is exact. Matching ignores case; <code>!=</code> excludes. Fields: ${Object.keys(FF).map(k=>`<code>${k}</code>`).join(', ')}.</p>
+  </div></div>
+  <div id="fres" aria-live="polite"></div>`;
+}
+function drawFlt(){
+  const el=$('#frows');if(!el)return;$('#fj').value=state.fjoin;
+  el.innerHTML=state.flt.map((c,i)=>`<div class="frow">
+    <select aria-label="Field" onchange="state.flt[${i}].f=this.value;drawFlt();syncQ()">${Object.entries(FF).map(([k,v])=>`<option value="${k}"${k===c.f?' selected':''}>${v[0]}</option>`).join('')}</select>
+    <select aria-label="Operator" onchange="state.flt[${i}].op=this.value;syncQ()"><option value="="${c.op==='='?' selected':''}>=</option><option value="!="${c.op==='!='?' selected':''}>!=</option></select>
+    <input aria-label="Value" class="mono" value="${esc(c.v)}" placeholder="${esc(FPH[c.f]||'value or %pattern%')}" oninput="state.flt[${i}].v=this.value;syncQ()" onkeydown="if(event.key==='Enter')runFilter()">
+    <button class="btn ghost sm" aria-label="Remove condition" onclick="state.flt.splice(${i},1);drawFlt();syncQ()">✕</button></div>`).join('')||'<p class="mu small">No conditions yet. Add one, or type a query above.</p>';
+}
+function syncQ(){const q=$('#fq');if(q)q.value=qExpr();const e=$('#fqerr');if(e)e.textContent=''}
+function addF(){state.flt.push({f:'API_NAME',op:'=',v:''});drawFlt()}
+function clearF(){state.flt=[{f:'API_NAME',op:'=',v:''}];state.fres=null;drawFlt();syncQ();const r=$('#fres');if(r)r.innerHTML=''}
+function setQ(s){const q=$('#fq');if(q)q.value=s;applyQuery()}
+function applyQuery(){
+  const r=parseQ(($('#fq')||{}).value);
+  if(r.err){$('#fqerr').textContent=r.err;return}
+  $('#fqerr').textContent='';
+  if(!r.conds.length){clearF();return}
+  state.flt=r.conds;state.fjoin=r.join;drawFlt();runFilter();
+}
+function runFilter(){
+  const C=state.flt.filter(c=>c.v.trim()),fr=$('#fres');
+  if(!C.length){state.fres=null;if(fr)fr.innerHTML='<div class="card"><p class="mu" style="margin:0">Add at least one condition with a value.</p></div>';return}
+  const and=state.fjoin!=='OR',rows=[];
+  store.apis.forEach((a,i)=>{
+    const ids=opIds(a),hits=new Set();let ok=and;
+    C.forEach(c=>{
+      const m=[];FF[c.f][1](a,ids).forEach((x,k)=>{if(like(x,c.v.trim()))m.push(k)});
+      const pass=c.op==='='?m.length>0:m.length===0;
+      if(pass&&c.op==='='&&FF[c.f][2])m.forEach(k=>hits.add(k));
+      ok=and?(ok&&pass):(ok||pass);
+    });
+    if(ok)rows.push({i,hits:[...hits].sort((x,y)=>x-y)});
+  });
+  state.fres={q:qExpr(),rows};drawFres();
+}
+function drawFres(){
+  const fr=$('#fres');if(!fr||!state.fres)return;const R=state.fres.rows;
+  if(!R.length){fr.innerHTML=`<div class="card"><span class="tag wn">No matches</span><p class="mu" style="margin:10px 0 0">No API matches <code>${esc(state.fres.q)}</code>.</p></div>`;return}
+  fr.innerHTML=`<div class="card"><div class="wf-h2"><div><h2>${R.length} API${R.length>1?'s':''} match</h2><p class="mu small" style="margin:2px 0 0"><code>${esc(state.fres.q)}</code></p></div><button class="btn ghost sm" onclick="exportFres()">Export results (.csv)</button></div>
+  <div class="scroll"><table class="rt"><tr><th>API</th><th>Backend</th><th>Named value</th><th>Operations</th></tr>
+  ${R.map(r=>{const a=store.apis[r.i],ids=opIds(a);return `<tr>
+    <td><button class="lnk" onclick="showDoc(${r.i})">${esc(a.name)}</button> <span class="ver">${esc(a.version)}</span><br>${stBadge(a)} <span class="mu small">${esc(a.team)}</span></td>
+    <td><code>${esc(a.backend)}</code></td>
+    <td>${a.vault?`<code>${esc(a.vault)}</code>`:'<span class="mu">none</span>'}</td>
+    <td>${r.hits.length?r.hits.map(k=>`<div class="mo"><span class="m ${a.ops[k][0]}">${a.ops[k][0]}</span><code>${esc(a.ops[k][1])}</code><code class="oid hit">${esc(ids[k])}</code></div>`).join(''):`<span class="mu small">All ${a.ops.length} operations</span>`}</td></tr>`}).join('')}
+  </table></div></div>`;
+}
+function exportFres(){
+  const R=(state.fres||{}).rows||[];
+  const c=v=>{v=String(v??'');if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
+  const lines=[['API name','Version','Status','Owning team','Backend','URL suffix','Named value','Operations'].map(c).join(',')];
+  R.forEach(r=>{const a=store.apis[r.i],ids=opIds(a),ks=r.hits.length?r.hits:a.ops.map((_,j)=>j);
+    lines.push([a.name,a.version,a.status,a.team,a.backend,a.suffix,a.vault,ks.map(j=>`${a.ops[j][0]} ${a.ops[j][1]} [${ids[j]}]`).join('; ')].map(c).join(','))});
+  dl('api-filter-results.csv','﻿'+lines.join('\r\n'),'text/csv');
+}
+
+// ================= TDD templates: model =================
+// A template is {id,name,desc,title,builtIn,enabled,blocks:[...]}.
+// Block types: h (heading, l=level), p (paragraph), ul (list, one item per line),
+// tbl (table: first line = header, "|" between cells, "\n" = line break in a cell), auto (k = auto section key).
+function bH(l,x){return{t:'h',l,x}}
+function bP(x){return{t:'p',x}}
+function bU(x){return{t:'ul',x}}
+function bT(x){return{t:'tbl',x}}
+function bA(k,l){return l?{t:'auto',k,l}:{t:'auto',k}}
+const AUTO={
+  toc:['Table of contents','Numbered list of the document’s headings'],
+  docinfo:['Document information','Title, versions, owner, author, JIRA, status, date'],
+  revisions:['Revision history','Version, date, author, change'],
+  overview:['API overview','Name, version, status, suffix, backend, auth, named value'],
+  flow:['Data flow and steps','Flow diagram plus A1, A2… steps through APIM, including error paths'],
+  volume:['Message volume and frequency','Per-operation frequency, mode, availability, volume, credentials'],
+  security:['Security design','Authentication, authorization, credentials, transport'],
+  ops:['Operations summary','Method, gateway path, operation ID, summary'],
+  opdetail:['Operation details','One sub-section per operation with parameters and responses'],
+  reqres:['Request and response','Per-operation table: operation and API suffix, payload request, response'],
+  policies:['Gateway policies','Inbound, backend, outbound, on-error'],
+  errors:['Error handling','Error object and HTTP status codes'],
+  dependencies:['Dependencies','Backend, Key Vault and gateway dependencies with impact'],
+  envs:['Environments','Gateway and backend URL per environment'],
+  nfr:['Non-functional requirements','Availability, latency, throughput, payload, retention'],
+  openapi:['OpenAPI specification','The full generated spec']
+};
+const PH={'api.name':'API name','api.version':'Version','api.title':'Name and version','api.description':'Description','api.suffix':'Gateway URL suffix','api.backend':'Backend endpoint','api.team':'Owning team','api.contact':'Team contact','api.auth':'Authentication','api.namedValue':'Key Vault named value','api.status':'Lifecycle status','api.opCount':'Number of operations','api.specFile':'Spec file path','api.specUrl':'Spec file URL','api.codeRepo':'Service code repo','today':'Today’s date','author':'Author name','authorRole':'Author role','authorEmail':'Author email','jira':'JIRA ticket(s)','consumer':'Consumer / source system','target':'Target system'};
+const specUrl=a=>`${store.git.repo}/blob/${store.git.branch}/${a.specFile}`;
+function phVals(a,m){
+  return{'api.name':a.name,'api.version':a.version,'api.title':a.name+' '+a.version,'api.description':a.desc,'api.suffix':a.suffix,'api.backend':a.backend,'api.team':a.team,'api.contact':a.contact,'api.auth':authLbl(a),'api.namedValue':a.vault,'api.status':ST[a.status]||a.status,'api.opCount':String(a.ops.length),'api.specFile':a.specFile,'api.specUrl':specUrl(a),'api.codeRepo':a.codeRepo,today:new Date().toISOString().slice(0,10),author:m.author,authorRole:m.role,authorEmail:m.email,jira:m.jira,consumer:m.consumer,target:m.target};
+}
+const fillPH=(s,V)=>String(s??'').replace(/\{\{\s*([\w.]+)\s*\}\}/g,(x,k)=>k in V?(V[k]&&String(V[k]).trim()?String(V[k]):`[TBD: ${PH[k]||k}]`):x);
+function parseTbl(x){
+  const L=String(x||'').split('\n').filter(l=>l.trim()).map(l=>l.split('|').map(c=>c.trim().replace(/\\n/g,'\n')));
+  if(!L.length)return{cols:[],rows:[]};
+  const w=Math.max(...L.map(r=>r.length));L.forEach(r=>{while(r.length<w)r.push('')});
+  return{cols:L[0],rows:L.slice(1)};
+}
+
+function BUILTIN_TPLS(){
+  const H=bH,P=bP,U=bU,T=bT,A=bA,NA=()=>bP('Not Applicable');
+  return [
+  {id:'tpl-process',builtIn:true,name:'Process Type Technical Design (APIM)',title:'{{api.name}}-{{api.version}}',
+   desc:'Confluence “Process Type Technical Design” layout: tracking tables, introduction, constraints and risks, data architecture with flow steps, message volume, SLAs, technical specifications with request and response, approvals.',
+   blocks:[H(2,'Table of Contents'),A('toc'),
+    H(2,'Process Type Technical Design'),
+    T('Page Information | Contributors | Labels\nCreated: {{today}}\\nLast Modified: {{today}} | {{author}} | API, {{api.team}}'),
+    H(2,'Design Development Tracking'),T('Date | Changed By | JIRA\n{{today}} | {{author}} | {{jira}}'),
+    H(2,'Issue Tracking'),T('Date Reported | Reported By | Assigned To | Issue | Status | JIRA | Date Resolved | Resolution\n | | | | | | | '),
+    H(3,'1 Introduction'),T('Overview | This API is consumed by {{consumer}}, with {{target}} as the target system, while Azure APIM acts as middleware between {{consumer}} and {{target}}. {{api.description}}'),
+    H(3,'2 References'),T('# | Reference Document | Link/Uploaded Files\n1 | OpenAPI specification | {{api.specUrl}}\n2 | Service code repository | {{api.codeRepo}}'),
+    H(3,'3 Key Contributors'),T('# | Name | Title/Role | Email\n1 | {{author}} | {{authorRole}} | {{authorEmail}}'),
+    H(3,'4 Constraints, Assumptions, and Risks'),
+    H(4,'4.1 Constraints'),T('# | Constraint | Impact\n1 | Azure APIM is the mandatory middleware between {{consumer}} and the target system ({{target}}) | High'),
+    H(4,'4.2 Assumptions'),T('# | Assumption\n1 | {{target}} services and endpoints remain available and stable\n2 | Consumer applications can integrate with the APIM endpoints\n3 | APIM policies and routing configuration are deployed consistently across environments'),
+    H(4,'4.3 Risks'),T('# | Risk | Impact | Mitigation Strategy\n1 | {{target}} service outage or degradation | High | Retries, monitoring and alerting on backend failures\n2 | Incorrect APIM endpoint configuration or policy failure | High | Peer-reviewed policies deployed through the CI/CD pipeline; smoke tests after each deployment\n3 | High API traffic or throttling limits | Medium | Load and performance testing before production deployment'),
+    H(3,'5 Data Architecture'),H(4,'5.1 Data Architecture'),NA(),
+    H(4,'5.2 Data Flow and Context Diagrams'),P('<Insert Diagram Here>'),A('flow'),
+    H(5,'5.2.1 Message Volume and Frequency'),A('volume'),
+    H(5,'5.2.2 Service Level Agreements'),T('# | SLA Description | Expected Response Time | Max Time before Business Impact | Business Impact if Exceeded | Monitored By | Escalation\n1 | [TBD: SLA description] | [TBD: ms] | [TBD] | [TBD] | APIM DevOps | {{api.team}}'),
+    H(5,'5.2.3 Dependencies'),A('dependencies'),
+    H(4,'5.3 Conceptual Data Model'),NA(),H(4,'5.4 Logical Data Model'),NA(),H(4,'5.5 Physical Data Model'),NA(),H(4,'5.6 Data Migration Guidance'),NA(),
+    H(4,'5.7 Key Performance Indicators (KPI)'),T('# | KPI Category | KPI Name | SLA | KPI Logic\n1 | System | API availability | [TBD: e.g. 99.9%] | Successful calls ÷ total calls, from APIM analytics\n2 | System | Response time (p95) | [TBD: ms] | 95th percentile of APIM request duration'),
+    H(3,'6 Technical Specifications'),T('# | Link to Packages, MFT, or API Designs | Design Function\n1 | {{api.specUrl}} | OpenAPI specification for {{api.title}}'),
+    H(4,'6.1 {{api.name}}'),
+    H(5,'6.1.1 Data Conversion Design'),NA(),H(5,'6.1.2 User interface'),NA(),
+    H(5,'6.1.3 Application Interface Design'),A('ops'),
+    H(5,'6.1.4 Reporting and Form Design'),NA(),H(5,'6.1.5 Workflow Design'),NA(),
+    H(5,'6.1.6 Security Design'),A('security'),
+    H(5,'6.1.7 Request and Response'),A('reqres'),
+    H(3,'7 Approvals'),T('Reviewer | Review Dates | Status | Record Confluence Version Approved | Current Version\n[TBD: reviewer name] | | Approved / Not Approved | | 1')]},
+  {id:'tpl-standard',builtIn:true,name:'Standard API TDD',title:'Technical Design Document: {{api.title}}',
+   desc:'Full design document: document control, overview, architecture and environments, security, every operation in detail, gateway policies, errors, NFRs, testing, deployment, approvals and the OpenAPI spec.',
+   blocks:[P('Generated from the OpenAPI specification by Integration API Accelerator on {{today}}. Items marked [TBD] must be completed by the owning team before review.'),
+    H(2,'1. Document control'),A('docinfo'),H(3,'1.1 Revision history'),A('revisions'),
+    H(2,'2. Introduction'),H(3,'2.1 Purpose'),P('This document describes the technical design of {{api.title}}. {{api.description}}'),
+    H(3,'2.2 Scope'),P('In scope: [TBD: capabilities delivered by this version]. Out of scope: [TBD: excluded items].'),
+    H(3,'2.3 Audience'),P('Developers integrating with the API, the owning team, API Management administrators and design reviewers.'),
+    H(3,'2.4 References'),U('OpenAPI specification: {{api.specUrl}}\nService code repository: {{api.codeRepo}}\nRelated tickets: {{jira}}'),
+    H(2,'3. API overview'),A('overview'),
+    H(2,'4. Architecture and integration flow'),A('flow'),H(3,'4.1 Environments'),A('envs'),
+    H(2,'5. Security'),A('security'),
+    H(2,'6. Operations summary'),A('ops'),
+    H(2,'7. Operation details'),A('opdetail',3),
+    H(2,'8. Gateway policies'),A('policies'),
+    H(2,'9. Error handling'),A('errors'),
+    H(2,'10. Non-functional requirements'),A('nfr'),
+    H(2,'11. Logging and monitoring'),U('Gateway diagnostics sent to Application Insights / Log Analytics\nCorrelation ID forwarded to the backend on every call\nAlerts and dashboards: [TBD: thresholds and owners]'),
+    H(2,'12. Testing'),U('Contract tests generated from the OpenAPI spec\nFunctional test for each operation in section 6\nPerformance and security testing: [TBD: approach]'),
+    H(2,'13. Deployment and versioning'),U('Spec stored at {{api.specFile}}; every change goes through a pull request\nDeployed to API Management by the CI/CD (APIOps) pipeline after merge\nBreaking changes require a new version alongside the current one'),
+    H(2,'14. Risks, assumptions and open items'),T('# | Item | Owner | Status\n1 | [TBD: risk or assumption] | [TBD: owner] | Open'),
+    H(2,'15. Approvals'),T('Role | Name | Decision | Date\nOwning team lead | [TBD: name] | | \nAPI governance | [TBD: name] | | \nSecurity | [TBD: name] | | '),
+    H(2,'Appendix A. OpenAPI specification'),A('openapi')]},
+  {id:'tpl-quick',builtIn:true,name:'API Quick Reference',title:'{{api.title}}: API quick reference',
+   desc:'A short handover document for consumers: overview, operations, security, request and response, and errors.',
+   blocks:[A('overview'),H(2,'Operations'),A('ops'),H(2,'Security'),A('security'),H(2,'Request and response'),A('reqres'),H(2,'Errors'),A('errors')]}
+  ];
+}
+
+// ================= TDD templates: rendering =================
+function autoBlocks(k,a,m,B,lvl){
+  const ids=opIds(a),T=s=>`[TBD: ${s}]`,today=new Date().toISOString().slice(0,10);
+  const cons=m.consumer||'The consumer application',tgt=m.target||'the target system',Tgt=m.target||'The target system';
+  const tb=(hd,rows)=>B.push({tb:hd,rows}),params=p=>[...new Set([...p.matchAll(/\{([^}]+)\}/g)].map(x=>x[1]))];
+  const authTxt=a.auth==='oauth'?'OAuth 2.0 bearer token (JWT), validated at the gateway with validate-jwt':'Subscription key sent in the Ocp-Apim-Subscription-Key header';
+  switch(k){
+  case 'toc':B.push({toc:true,items:[]});break;
+  case 'docinfo':tb(['Field','Value'],[['Document title',`TDD: ${a.name} ${a.version}`],['API version',a.version],['Document version','0.1 (draft)'],['Document status','Draft'],['Owning team',a.team],['Team contact',a.contact||T('team contact')],['Author',m.author||T('author name')],['JIRA',m.jira||T('ticket')],['Reviewers',`${a.team}; API governance; Security`],['Spec file',specUrl(a)],['Date',today]]);break;
+  case 'revisions':tb(['Version','Date','Author','Change'],[['0.1',today,m.author||T('author'),'Initial draft generated from the OpenAPI spec']]);break;
+  case 'overview':
+    tb(['Attribute','Value'],[['API name',a.name],['Version',a.version],['Lifecycle status',ST[a.status]||a.status],['Description',a.desc||T('description')],['Gateway URL suffix',a.suffix],['Backend endpoint',a.backend],['Authentication',authLbl(a)],['Key Vault named value',a.vault||'None'],['Number of operations',String(a.ops.length)],['Current consumers',String(a.consumers??0)]]);
+    if(a.status==='deprecated')B.push({p:`This API is deprecated.${a.successor?` New integrations should use ${a.successor}.`:''} Retirement date: ${T('date')}.`});
+    break;
+  case 'flow':{
+    const meth=[...new Set(a.ops.map(o=>o[0]))].join('/')||'HTTP';
+    B.push({pre:`${m.consumer||'Consumer application'}\n   |  HTTPS, ${a.auth==='oauth'?'OAuth 2.0 bearer token':'Ocp-Apim-Subscription-Key header'}\n   v\nAzure API Management   ${a.suffix}\n   |  policies: authentication, rate limiting, set backend${a.vault?`, named value ${a.vault}`:''}\n   v\n${m.target||'Backend service'}   ${a.backend}`});
+    const st=[`${cons} sends a ${meth} request to Azure APIM at ${a.suffix}.`,
+      `Azure APIM validates the ${a.auth==='oauth'?'OAuth 2.0 bearer token':'subscription key'}${a.vault?`, adds the backend credential from named value ${a.vault},`:''} and forwards the request to ${tgt} at ${a.backend}.`,
+      `${Tgt} processes the request and returns the response to Azure APIM.`,
+      `Azure APIM returns the response to ${m.consumer||'the consumer application'}.`,
+      '400 Bad Request: the request is invalid; returned by the target system.',
+      '401 Unauthorized: credentials are missing or invalid; returned by APIM.',
+      '404 Not Found: the operation or API version does not exist; returned by APIM.',
+      '500 Internal Server Error: returned by the target system.',
+      '504 Gateway Timeout: APIM did not receive a backend response in time.'];
+    tb(['Step #','Process Flow Step Definition'],st.map((s,i)=>['A'+(i+1),s]));break}
+  case 'volume':{
+    const cols=a.ops.length>3||!a.ops.length?['All operations']:a.ops.map(o=>`${o[0]} ${o[1]}`),v=x=>cols.map(()=>x);
+    const cred=(a.auth==='oauth'?'Yes (OAuth 2.0 token)':'Yes (subscription key)')+(a.vault?`; backend key in ${a.vault}`:'');
+    tb(['Attribute',...cols],[['Frequency',...v('Synchronous (request/response)')],['Modes',...v('API: REST over HTTPS through Azure APIM')],['Batch Timing',...v('Not applicable (real time)')],['Batch Interval Volume',...v('Not applicable')],['Expected Availability',...v(T('e.g. 24/7 with maintenance windows'))],['Transaction Volume',...v(`Avg: ${T('per day')}\nPeak: ${T('per hour')}\nFuture: ${T('growth')}`)],['Transaction Size',...v(`Avg: ${T('KB')}\nMax: ${T('KB')}`)],['Triggering Events',...v('Request')],['Maintenance Windows for Sender',...v(T('window'))],['Maintenance Windows for Receiver',...v(T('window'))],['Encryption Required',...v('Yes (TLS 1.2 or later)')],['Special Credentials Required',...v(cred)],['Sensitive information (PHI/PII)?',...v(T('Yes / No'))]]);
+    break}
+  case 'security':tb(['Aspect','Design'],[['Authentication',authTxt],['Authorization',T('roles or scopes required per operation')],['Backend credentials',a.vault?`API Management named value ${a.vault}, backed by Key Vault. The secret value is never stored in the spec or this document.`:T('how the gateway authenticates to the backend')],['Transport','HTTPS (TLS 1.2 or later) end to end'],['Data classification',T('e.g. Internal or Confidential; PII handling')]]);break;
+  case 'ops':tb(['#','Method','Gateway path','Operation ID','Summary'],a.ops.map((o,i)=>[String(i+1),o[0],a.suffix+o[1],ids[i],o[2]]));break;
+  case 'opdetail':
+    a.ops.forEach((o,i)=>{const ps=params(o[1]),body=['POST','PUT','PATCH'].includes(o[0]);
+      B.push({h:lvl||3,t:`${o[0]} ${o[1]}: ${o[2]}`});
+      tb(['Attribute','Value'],[['Operation ID',ids[i]],['Gateway URL',a.suffix+o[1]],['Backend URL',a.backend.replace(/\/+$/,'')+o[1]],['Path parameters',ps.length?ps.map(x=>`${x} (string, required)`).join(', '):'None'],['Request body',body?`application/json. Schema: ${T('request fields')}`:'None'],['Success response',`200, application/json. Schema: ${T('response fields')}`],['Error responses','400, 401, 500: standard Error object']]);
+      B.push({p:`Business rules and validation: ${T('rules for this operation')}`});
+    });break;
+  case 'reqres':tb(['Operation Name / Method and API Suffix','Payload Request','Response'],a.ops.map((o,i)=>{const ps=params(o[1]),body=['POST','PUT','PATCH'].includes(o[0]);
+      return[`${o[2]}\n${o[0]} ${a.suffix}${o[1]}\nOperation ID: ${ids[i]}`,(body?`Content-Type: application/json\n${T('sample request payload')}`:'No request body')+(ps.length?`\nPath parameters: ${ps.join(', ')}`:''),`200 OK, application/json\n${T('sample response payload')}\nErrors: 400, 401, 500`]}));break;
+  case 'policies':tb(['Section','Policy'],[['Inbound',`${a.auth==='oauth'?'validate-jwt':'subscription key check'}; rate-limit-by-key (${T('calls per period')}); set-backend-service`],['Backend',`forward-request with timeout ${T('seconds')}`],['Outbound',`Remove internal headers; ${T('response transformation, if any')}`],['On-error','Return the standard Error object; log to Application Insights']]);break;
+  case 'errors':
+    B.push({p:'All errors return the standard Error object:'});
+    B.push({pre:'{\n  "code": "string",\n  "message": "string"\n}',lang:'json'});
+    tb(['HTTP status','Meaning','Returned by'],[['400','Invalid request','Target system'],['401','Missing or invalid credentials','APIM'],['404','Operation or version not found','APIM'],['500','Unexpected server error','Target system'],['504','Backend timeout','APIM']]);break;
+  case 'dependencies':{
+    const r=[[`${m.target||'Backend service'} (${a.backend})`,'The API is unavailable when the backend is down or slow']];
+    if(a.vault)r.push([`Key Vault named value ${a.vault}`,'Calls to the backend fail if the secret is missing or expired']);
+    r.push(['Azure API Management gateway','All operations are unavailable during a gateway outage']);
+    tb(['#','Dependency','Potential Impact'],r.map((x,i)=>[String(i+1),...x]));break}
+  case 'envs':tb(['Environment','Gateway URL','Backend URL'],[['Development',`${T('dev gateway host')}${a.suffix}`,T('dev backend URL')],['Test / QA',`${T('test gateway host')}${a.suffix}`,T('test backend URL')],['Production',`${T('prod gateway host')}${a.suffix}`,a.backend]]);break;
+  case 'nfr':tb(['Requirement','Target'],[['Availability',T('e.g. 99.9%')],['Latency (p95)',T('milliseconds')],['Throughput',T('requests per second')],['Maximum payload size',T('KB or MB')],['Data retention',T('policy')]]);break;
+  case 'openapi':B.push({pre:swagger(a).replace(/\n$/,''),lang:'yaml'});break;
+  }
+}
+function tddBlocks(a,tpl){
+  const m=a.tdd||{},V=phVals(a,m),f=s=>fillPH(s,V),B=[];
+  B.push({title:f(tpl.title||'{{api.title}}')});
+  (tpl.blocks||[]).forEach(b=>{
+    if(b.t==='h'){const t=f(b.x);if(t.trim())B.push({h:Math.max(1,Math.min(5,b.l||2)),t})}
+    else if(b.t==='p')String(b.x||'').split(/\n\s*\n/).forEach(x=>{if(x.trim())B.push({p:f(x.trim())})});
+    else if(b.t==='ul'){const it=String(b.x||'').split('\n').filter(x=>x.trim()).map(x=>f(x.trim()));if(it.length)B.push({ul:it})}
+    else if(b.t==='tbl'){const L=parseTbl(b.x);if(L.cols.length)B.push({tb:L.cols.map(f),rows:L.rows.map(r=>r.map(f))})}
+    else if(b.t==='auto')autoBlocks(b.k,a,m,B,b.l);
+  });
+  // Table of contents: if the document uses numbered sections, list only those and indent by number depth
+  let hs=B.filter(x=>x.h&&x.h<=5&&!/^\s*table of contents\s*$/i.test(x.t)).map(x=>({l:x.h,t:x.t}));
+  const num=hs.filter(x=>/^\d+(\.\d+)*\.?\s/.test(x.t));
+  if(num.length>=3)hs=num.map(x=>({l:2+x.t.match(/^[\d.]+/)[0].replace(/\.$/,'').split('.').length-1,t:x.t}));
+  B.forEach(x=>{if(x.toc)x.items=hs});
+  return B;
+}
+const TBD_RE=/\[TBD[^\]]*\]/g;
+const TDD_CSS='body,h1,h2,h3,h4,h5,p,li{font-family:Calibri,Arial,sans-serif}body{font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.4}h1{font-size:20pt;color:#0b1f3a;margin:0 0 8px}h2{font-size:14pt;color:#0b6e4c;border-bottom:1px solid #c9d6d1;padding-bottom:3px;margin:22px 0 8px}h3{font-size:12.5pt;color:#0b1f3a;margin:16px 0 6px}h4{font-size:11.5pt;color:#0b1f3a;margin:12px 0 6px}h5{font-size:11pt;color:#333;margin:10px 0 4px}table{border-collapse:collapse;width:100%;margin:6px 0 10px}th,td{border:1px solid #bfbfbf;padding:5px 8px;text-align:left;vertical-align:top;font-size:10pt}th{background:#e6f1ec}pre{font-family:Consolas,monospace;font-size:9pt;background:#f4f6f8;border:1px solid #d9d9d9;padding:8px;white-space:pre-wrap}.toc{margin:1px 0;font-size:10.5pt}.tbd{background:#fff2a8;color:#7a5200}';
+function tddHtml(a,tpl){
+  const e=s=>esc(s).replace(TBD_RE,x=>`<span class="tbd">${x}</span>`),ec=s=>e(s).replace(/\n/g,'<br>');
+  let body='',title='';
+  tddBlocks(a,tpl).forEach(b=>{
+    if(b.title!=null){title=b.title;body+=`<h1>${e(b.title)}</h1>`}
+    else if(b.h)body+=`<h${b.h}>${e(b.t)}</h${b.h}>`;
+    else if(b.p)body+=`<p>${e(b.p)}</p>`;
+    else if(b.ul)body+='<ul>'+b.ul.map(x=>`<li>${e(x)}</li>`).join('')+'</ul>';
+    else if(b.toc)body+=b.items.map(x=>`<p class="toc" style="margin:0 0 0 ${Math.max(0,x.l-2)*20}px">${e(x.t)}</p>`).join('');
+    else if(b.pre)body+=`<pre>${esc(b.pre)}</pre>`;
+    else if(b.tb){const cs='border:1px solid #bfbfbf;padding:5px 8px;text-align:left;vertical-align:top;font-size:10pt;font-family:Calibri,Arial,sans-serif',cell=x=>String(x).trim()?ec(x):'&nbsp;';
+      body+=`<table border="1" cellspacing="0" cellpadding="6" width="100%" style="border-collapse:collapse;width:100%;margin:6px 0 10px"><tr>`+b.tb.map(x=>`<th style="${cs};background:#e6f1ec">${cell(x)}</th>`).join('')+'</tr>'+b.rows.map(r=>'<tr>'+r.map(x=>`<td style="${cs}">${cell(x)}</td>`).join('')+'</tr>').join('')+'</table>'}
+  });
+  return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>${esc(title)}</title><style>${TDD_CSS}</style></head><body>${body}</body></html>`;
+}
+function tddMd(a,tpl){
+  const c=s=>String(s).replace(/\|/g,'\\|').replace(/\n/g,'<br>');let o='';
+  tddBlocks(a,tpl).forEach(b=>{
+    if(b.title!=null)o+=`# ${b.title}\n\n`;
+    else if(b.h)o+=`${'#'.repeat(b.h)} ${b.t}\n\n`;
+    else if(b.p)o+=b.p+'\n\n';
+    else if(b.ul)o+=b.ul.map(x=>'- '+x).join('\n')+'\n\n';
+    else if(b.toc)o+=b.items.map(x=>`${'  '.repeat(Math.max(0,x.l-2))}- ${x.t}`).join('\n')+'\n\n';
+    else if(b.pre)o+='```'+(b.lang||'')+'\n'+b.pre+'\n```\n\n';
+    else if(b.tb)o+='| '+b.tb.map(c).join(' | ')+' |\n|'+b.tb.map(()=>' --- |').join('')+'\n'+b.rows.map(r=>'| '+r.map(c).join(' | ')+' |').join('\n')+'\n\n';
+  });
+  return o;
+}
+const tbdCount=(a,t)=>(tddMd(a,t).match(TBD_RE)||[]).length;
+
+// ================= TDD: end-user export =================
+function curTpl(){
+  const en=store.templates.filter(t=>t.enabled!==false);
+  return en.find(t=>t.id===state.tplSel)||en.find(t=>t.id===store.defaultTpl)||en[0]||store.templates[0];
+}
+let tddT;
+function refreshTdd(i){clearTimeout(tddT);tddT=setTimeout(()=>{const a=store.apis[i],t=curTpl(),n=$('#tbdn');if(n)n.textContent=`${tbdCount(a,t)} items marked [TBD]`;const f=$('#tddp iframe');if(f)f.srcdoc=tddHtml(a,t)},250)}
+function setTpl(id,i){state.tplSel=id;const d=$('#tpld');if(d)d.textContent=curTpl().desc||'';refreshTdd(i)}
+function setMeta(i,k,v){const a=store.apis[i];a.tdd={...(a.tdd||{}),[k]:v};save();refreshTdd(i)}
+function tddDoc(i){const a=store.apis[i],t=curTpl();dl(`TDD-${slug(a.name)}-${a.version}-${slug(t.name)}.doc`,'﻿'+tddHtml(a,t),'application/msword')}
+function tddMdDl(i){const a=store.apis[i],t=curTpl();dl(`TDD-${slug(a.name)}-${a.version}-${slug(t.name)}.md`,tddMd(a,t),'text/markdown')}
+function tddPreview(i,btn){
+  const p=$('#tddp');if(!p)return;
+  if(p.firstChild){p.innerHTML='';if(btn)btn.textContent='Preview';return}
+  const f=document.createElement('iframe');f.className='tdd-prev';f.title='TDD preview';f.setAttribute('sandbox','');f.srcdoc=tddHtml(store.apis[i],curTpl());p.appendChild(f);
+  if(btn)btn.textContent='Hide preview';
+}
+
+// ================= Designs (skins) and colour mode =================
+var SKIN_IDS=['fintech','aurora','midnight','horizon','sunset'];
+const SKINS={fintech:['Fintech','#0b8a5f','#0b1f3a'],aurora:['Aurora','#7c3aed','#06b6d4'],midnight:['Midnight Neon','#22d3ee','#a855f7'],horizon:['Horizon','#2563eb','#e3e8f2'],sunset:['Sunset','#ea580c','#db2777']};
+const MODES={auto:['◐','Auto (follows your system)'],light:['☀','Light'],dark:['☾','Dark']};
+function applySkin(){
+  const r=document.documentElement;r.dataset.skin=store.skin;
+  if(store.mode==='auto'||store.skin==='midnight')delete r.dataset.theme;else r.dataset.theme=store.mode;
+}
+function drawSkin(){
+  const el=$('#skin');if(!el)return;const mid=store.skin==='midnight',m=MODES[store.mode]||MODES.auto;
+  el.innerHTML=`<span class="sk-l">Look</span><div class="sk-sw" role="group" aria-label="Design">${SKIN_IDS.map(k=>`<button class="sw${store.skin===k?' on':''}" style="--a:${SKINS[k][1]};--b:${SKINS[k][2]}" title="${SKINS[k][0]}" aria-label="${SKINS[k][0]} design" aria-pressed="${store.skin===k}" onclick="setSkin('${k}')"></button>`).join('')}</div>
+  <button class="mode" onclick="cycleMode()" ${mid?'disabled title="Midnight Neon is always dark"':`title="Colour mode: ${m[1]}"`} aria-label="Colour mode: ${mid?'dark':m[1]}">${mid?'☾':m[0]}</button>`;
+}
+function setSkin(k){if(!SKINS[k])return;store.skin=k;save();applySkin();drawSkin();toast(SKINS[k][0]+' design')}
+function cycleMode(){const o=['auto','light','dark'];store.mode=o[(o.indexOf(store.mode)+1)%3];save();applySkin();drawSkin();toast('Colour mode: '+MODES[store.mode][1])}
+function togglePanel(force){
+  const s=$('#side');if(!s)return;const o=force!=null?!!force:!s.classList.contains('open');
+  s.classList.toggle('open',o);const b=$('#morebtn');if(b)b.setAttribute('aria-expanded',String(o));
+}
+document.addEventListener('click',e=>{const s=$('#side');if(s&&s.classList.contains('open')&&!s.contains(e.target))togglePanel(false)});
+
+// ================= Roles =================
+const isAdmin=()=>store.role==='admin';
+function drawRole(){
+  $('#role').innerHTML=`<label for="rolesel">Viewing as</label><select id="rolesel" onchange="setRole(this.value)"><option value="user"${isAdmin()?'':' selected'}>End user</option><option value="admin"${isAdmin()?' selected':''}>Admin</option></select>`;
+}
+function setRole(v){
+  store.role=v==='admin'?'admin':'user';save();
+  if(!isAdmin()&&state.tab==='tpl'){state.tplEdit=null;state.tab='home'}
+  render();toast(isAdmin()?'Viewing as Admin: TDD Templates is now in the menu':'Viewing as End user');
+}
+
+// ================= Admin: TDD templates =================
+const BT={h:'Heading',p:'Paragraph',ul:'List',tbl:'Table',auto:'Auto section'};
+function vTpl(){
+  if(!isAdmin()){$('#app').innerHTML='<h1>TDD templates</h1><div class="card"><p style="margin:0">Only admins can manage TDD templates. Switch “Viewing as” to Admin in the menu.</p></div>';return}
+  if(state.tplEdit)return vTplEdit();
+  $('#app').innerHTML=`
+  <div class="hd"><div><h1>TDD templates</h1><p class="sub">Templates that end users choose from when they export a TDD. Built-in templates are read-only; duplicate one to customise it.</p></div>
+  <div class="row" style="flex:none"><button class="btn" onclick="newTpl()">+ New template</button><button class="btn ghost" onclick="$('#tplf').click()">Import Word / Confluence / JSON</button></div></div>
+  <input type="file" id="tplf" accept=".doc,.htm,.html,.mht,.mhtml,.json" hidden onchange="importTplFile(this)">
+  <div class="note">Import a Confluence page exported to Word (.doc), a Word document saved as <b>Web Page (.htm)</b>, an HTML file, or a template exported from here as JSON. Headings, text, lists and tables become editable sections, and recognised sections (request and response, message volume, data flow) are switched to auto sections. Binary .docx files aren’t supported.</div>
+  <div class="note" style="background:var(--wnb);color:var(--wn)">In production only the API governance group sees this page. The “Viewing as” switch is for the demo.</div>
+  <div class="grid tplg">${store.templates.map(tplCard).join('')}</div>
+  <div id="tplprev"></div>`;
+}
+function tplCard(t,j){
+  const def=t.id===store.defaultTpl,off=t.enabled===false,c=k=>t.blocks.filter(b=>b.t===k).length;
+  return `<div class="card tplc${off?' off':''}"><div class="tplc-h"><b>${esc(t.name)}</b><span>${t.builtIn?'<span class="tag info">Built-in</span>':'<span class="tag ok">Custom</span>'} ${def?'<span class="tag st-active">Default</span>':''} ${off?'<span class="tag wn">Hidden from users</span>':''}</span></div>
+  <p class="mu small">${esc(t.desc||'No description')}</p>
+  <p class="small">${c('h')} headings · ${c('tbl')} tables · ${c('auto')} auto sections</p>
+  <div class="row tpl-act">
+    ${t.builtIn?'':`<button class="btn sm" onclick="editTpl(${j})">Edit</button>`}
+    <button class="btn ghost sm" onclick="previewTpl(${j})">Preview</button>
+    <button class="btn ghost sm" onclick="dupTpl(${j})">Duplicate</button>
+    ${def?'':`<button class="btn ghost sm" onclick="setDefTpl(${j})"${off?' disabled title="Show it to users first"':''}>Set default</button><button class="btn ghost sm" onclick="toggleTpl(${j})">${off?'Show to users':'Hide from users'}</button>`}
+    <button class="btn ghost sm" onclick="exportTpl(${j})">Export JSON</button>
+    ${t.builtIn||def?'':`<button class="btn ghost sm danger" onclick="delTpl(${j},this)">Delete</button>`}
+  </div></div>`;
+}
+function previewTpl(j){
+  const t=store.templates[j],p=$('#tplprev');if(!p)return;
+  p.innerHTML=`<div class="card"><div class="wf-h2"><h2>Preview: ${esc(t.name)}</h2><select id="tpa2" aria-label="Preview with API" style="width:auto" onchange="previewTplWith(${j},+this.value)">${store.apis.map((a,k)=>`<option value="${k}">${esc(a.name)} ${esc(a.version)}</option>`).join('')}</select></div><iframe id="tplif2" class="tdd-prev" sandbox="" title="Template preview"></iframe></div>`;
+  previewTplWith(j,0);p.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function previewTplWith(j,k){const f=$('#tplif2');if(f)f.srcdoc=tddHtml(store.apis[k]||store.apis[0],store.templates[j])}
+const cloneT=t=>JSON.parse(JSON.stringify(t));
+function newTpl(){state.tplEdit={idx:null,src:null,t:{name:'New template',desc:'',title:'{{api.title}}: Technical Design',blocks:[bH(2,'1 Introduction'),bP('{{api.description}}'),bH(2,'2 Operations'),bA('ops'),bH(2,'3 Request and Response'),bA('reqres'),bH(2,'4 Approvals'),bT('Reviewer | Review Date | Status\n[TBD: name] | | Approved / Not Approved')]}};vTpl()}
+function editTpl(j){const t=store.templates[j];if(t.builtIn)return dupTpl(j);state.tplEdit={idx:j,src:null,t:cloneT(t)};vTpl()}
+function dupTpl(j){const t=cloneT(store.templates[j]);delete t.id;t.builtIn=false;t.enabled=true;let n='Copy of '+t.name,k=2;while(store.templates.some(x=>x.name===n))n=`Copy of ${t.name} (${k++})`;t.name=n;state.tplEdit={idx:null,src:null,t};vTpl()}
+function setDefTpl(j){store.defaultTpl=store.templates[j].id;save();vTpl();toast('Default template updated')}
+function toggleTpl(j){const t=store.templates[j];t.enabled=t.enabled===false;save();vTpl();toast(t.enabled?'Template visible to users':'Template hidden from users')}
+function delTpl(j,b){
+  if(!b.dataset.c){b.dataset.c='1';b.textContent='Click again to delete';setTimeout(()=>{if(b.isConnected){b.dataset.c='';b.textContent='Delete'}},3000);return}
+  const t=store.templates[j];store.templates.splice(j,1);if(state.tplSel===t.id)state.tplSel=null;save();vTpl();toast('Template deleted');
+}
+function exportTpl(j){const t=store.templates[j];dl(`tdd-template-${slug(t.name)}.json`,JSON.stringify({format:'iaa-tdd-template',version:1,template:{name:t.name,desc:t.desc,title:t.title,blocks:t.blocks}},null,2),'application/json')}
+
+function vTplEdit(){
+  const e=state.tplEdit,t=e.t;
+  $('#app').innerHTML=`
+  <h1>${e.idx!=null?'Edit template':'New template'}</h1>
+  <p class="sub">${e.src?`Imported from <b>${esc(e.src)}</b>. Check the sections, replace example values with placeholders such as <code>{{api.name}}</code>, then save.`:'Build the template from headings, text, lists, tables and auto sections that are filled from the API.'}</p>
+  <div class="cg"><div class="cg-l">
+    <div class="card"><h2>Template details</h2>
+      <label for="tn">Name *</label><input id="tn" value="${esc(t.name)}" oninput="state.tplEdit.t.name=this.value">
+      <label for="tdsc">Description (shown to end users)</label><input id="tdsc" value="${esc(t.desc||'')}" oninput="state.tplEdit.t.desc=this.value">
+      <label for="ttl">Document title</label><input id="ttl" value="${esc(t.title||'')}" placeholder="{{api.title}}" oninput="state.tplEdit.t.title=this.value;tplPrevSoon()">
+    </div>
+    <div class="card"><div class="wf-h2"><h2>Sections</h2><span class="mu small" id="bcount"></span></div>
+      <div id="blks"></div>
+      <div class="addb"><span class="mu small">Add:</span>${Object.entries(BT).map(([k,v])=>`<button class="btn ghost sm" onclick="addB('${k}')">+ ${v}</button>`).join('')}</div>
+    </div>
+    <div class="card"><div class="row"><button class="btn" onclick="saveTpl()">Save template</button><button class="btn ghost" onclick="cancelTpl()">Cancel</button></div><div id="tplerr" class="err" role="alert"></div></div>
+  </div><div class="cg-r">
+    <div class="card"><div class="wf-h2"><h2>Live preview</h2><select id="tpa" aria-label="Preview with API" style="width:auto" onchange="tplPrevSoon(0)">${store.apis.map((a,k)=>`<option value="${k}">${esc(a.name)} ${esc(a.version)}</option>`).join('')}</select></div>
+      <iframe id="tplif" class="tdd-prev" style="height:50vh;margin-top:0" sandbox="" title="Template preview"></iframe></div>
+    <div class="card"><h2>Placeholders</h2><p class="mu small" style="margin-top:-6px">Use in any heading, text, list item or table cell. Empty values become <span class="tbd-k">[TBD]</span>.</p>
+      <div class="phl">${Object.entries(PH).map(([k,v])=>`<div><code>{{${k}}}</code><span class="mu">${v}</span></div>`).join('')}</div>
+      <p class="mu small" style="margin:0">Tables: one row per line, cells separated by <code>|</code>, first line is the header. Write <code>\\n</code> for a line break inside a cell.</p></div>
+  </div></div>`;
+  drawBlks();tplPrevSoon(0);
+}
+function drawBlks(){
+  const el=$('#blks');if(!el)return;const B=state.tplEdit.t.blocks;
+  $('#bcount').textContent=`${B.length} blocks`;
+  el.innerHTML=B.map((b,i)=>`<div class="blk blk-${b.t}"><div class="blk-h"><span class="blk-t">${BT[b.t]}</span>
+    ${b.t==='h'?`<select aria-label="Heading level" onchange="tb_(${i},'l',+this.value)">${[1,2,3,4,5].map(l=>`<option value="${l}"${(b.l||2)===l?' selected':''}>H${l}</option>`).join('')}</select>`:''}
+    ${b.t==='auto'?`<select aria-label="Auto section" onchange="tb_(${i},'k',this.value);drawBlks()">${Object.entries(AUTO).map(([k,v])=>`<option value="${k}"${b.k===k?' selected':''}>${v[0]}</option>`).join('')}</select>`:''}
+    <span class="blk-sp"></span>
+    <button class="ib" aria-label="Move up" onclick="mvB(${i},-1)"${i?'':' disabled'}>↑</button><button class="ib" aria-label="Move down" onclick="mvB(${i},1)"${i<B.length-1?'':' disabled'}>↓</button><button class="ib" aria-label="Remove block" onclick="rmB(${i})">✕</button></div>
+    ${b.t==='h'?`<input aria-label="Heading text" value="${esc(b.x)}" oninput="tb_(${i},'x',this.value)">`
+     :b.t==='auto'?`<p class="mu small" style="margin:0">${esc((AUTO[b.k]||['',''])[1])}. Filled from the API when the TDD is generated.</p>`
+     :`<textarea aria-label="${BT[b.t]} content" rows="${b.t==='p'?2:Math.min(8,Math.max(2,String(b.x||'').split('\n').length+1))}" placeholder="${b.t==='tbl'?'Header 1 | Header 2&#10;Cell | Cell':b.t==='ul'?'One item per line':'Text with {{placeholders}}'}" oninput="tb_(${i},'x',this.value)">${esc(b.x||'')}</textarea>`}
+  </div>`).join('')||'<p class="mu small">No sections yet. Add one below.</p>';
+}
+function tb_(i,k,v){state.tplEdit.t.blocks[i][k]=v;tplPrevSoon()}
+function mvB(i,d){const B=state.tplEdit.t.blocks,j=i+d;if(j<0||j>=B.length)return;[B[i],B[j]]=[B[j],B[i]];drawBlks();tplPrevSoon()}
+function rmB(i){state.tplEdit.t.blocks.splice(i,1);drawBlks();tplPrevSoon()}
+function addB(k){
+  state.tplEdit.t.blocks.push(k==='h'?bH(2,'New section'):k==='p'?bP(''):k==='ul'?bU(''):k==='tbl'?bT('Column 1 | Column 2\n | '):bA('ops'));
+  drawBlks();tplPrevSoon();const bs=document.querySelectorAll('.blk');if(bs.length)bs[bs.length-1].scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+let tplT;
+function tplPrevSoon(ms=300){clearTimeout(tplT);tplT=setTimeout(()=>{const f=$('#tplif');if(!f||!state.tplEdit)return;const a=store.apis[+(($('#tpa')||{}).value||0)]||store.apis[0];f.srcdoc=tddHtml(a,state.tplEdit.t)},ms)}
+function saveTpl(){
+  const e=state.tplEdit,t=e.t,err=$('#tplerr');t.name=String(t.name||'').trim();
+  if(!t.name){err.textContent='Template name is required.';return}
+  if(!t.blocks.length){err.textContent='Add at least one section.';return}
+  if(store.templates.some((x,j)=>j!==e.idx&&x.name.toLowerCase()===t.name.toLowerCase())){err.textContent='Another template already has this name.';return}
+  if(e.idx!=null)store.templates[e.idx]=t;
+  else{t.id='tpl-'+Date.now().toString(36);t.builtIn=false;t.enabled=true;store.templates.push(t)}
+  save();state.tplEdit=null;vTpl();toast('Template saved and available to users');
+}
+function cancelTpl(){state.tplEdit=null;vTpl()}
+
+// ---------- template import ----------
+function tplFromJson(o){
+  const t=o&&o.template?o.template:o;
+  if(!t||typeof t.name!=='string'||!Array.isArray(t.blocks))throw new Error('Not a TDD template file.');
+  const blocks=t.blocks.filter(b=>b&&BT[b.t]).map(b=>b.t==='auto'?bA(AUTO[b.k]?b.k:'ops',b.l?Math.max(1,Math.min(5,+b.l)):undefined):b.t==='h'?bH(Math.max(1,Math.min(5,+b.l||2)),String(b.x||'')):{t:b.t,x:String(b.x||'')});
+  if(!blocks.length)throw new Error('The template has no sections.');
+  return{name:String(t.name).slice(0,80),desc:String(t.desc||''),title:String(t.title||'{{api.title}}'),blocks};
+}
+function decodeQP(s){
+  s=s.replace(/=\r?\n/g,'');const out=[],enc=new TextEncoder();
+  for(let i=0;i<s.length;i++){const c=s[i];
+    if(c==='='&&/^[0-9A-Fa-f]{2}$/.test(s.substr(i+1,2))){out.push(parseInt(s.substr(i+1,2),16));i+=2}
+    else{const code=s.charCodeAt(i);if(code<128)out.push(code);else out.push(...enc.encode(c))}}
+  return new TextDecoder('utf-8').decode(new Uint8Array(out));
+}
+function extractHtml(raw){
+  const head=raw.slice(0,4000),bm=head.match(/boundary="?([^"\r\n;]+)"?/i);
+  if(bm&&/^(MIME-Version|Content-Type|Date|From|Subject|Message-ID):/im.test(head)){
+    for(const part of raw.split('--'+bm[1])){
+      const sp=part.search(/\r?\n\r?\n/);if(sp<0)continue;
+      const hd=part.slice(0,sp),body=part.slice(sp).replace(/^\r?\n\r?\n/,'');
+      if(!/content-type:\s*text\/html/i.test(hd))continue;
+      if(/transfer-encoding:\s*quoted-printable/i.test(hd))return decodeQP(body);
+      if(/transfer-encoding:\s*base64/i.test(hd)){const b=atob(body.replace(/\s+/g,''));return new TextDecoder('utf-8').decode(Uint8Array.from(b,c=>c.charCodeAt(0)))}
+      return body;
+    }
+  }
+  return raw;
+}
+function htmlToBlocks(html){
+  if(!/<(html|body|h[1-6]|table|p)[\s>]/i.test(html))throw new Error('This looks like a binary Word file. In Word, use Save As → Web Page (.htm) and import that.');
+  const doc=new DOMParser().parseFromString(html,'text/html');
+  doc.querySelectorAll('script,style,head,img,svg,object,iframe').forEach(x=>x.remove());
+  const B=[],txt=n=>n.textContent.replace(/\s+/g,' ').trim();let title='',afterToc=false;
+  const cellTxt=c=>{const li=[...c.querySelectorAll('li')];if(li.length)return li.map(txt).filter(Boolean).join('\\n');const ps=[...c.querySelectorAll('p')].map(txt).filter(Boolean);return ps.length>1?ps.join('\\n'):txt(c)};
+  const walk=n=>{for(const c of [...n.childNodes]){
+    if(c.nodeType===3){const t=c.textContent.replace(/\s+/g,' ').trim();if(t){B.push(bP(t));afterToc=false}continue}
+    if(c.nodeType!==1)continue;const tag=c.tagName.toLowerCase();
+    if(/^h[1-6]$/.test(tag)){const t=txt(c);if(!t)continue;const l=+tag[1];if(l===1&&!title){title=t;continue}B.push(bH(Math.max(2,Math.min(5,l)),t));afterToc=/^table of contents$|^contents$/i.test(t);continue}
+    if(tag==='table'){
+      const own=[...c.querySelectorAll('td,th')].filter(x=>x.closest('table')===c);
+      if(own.some(x=>x.querySelector('table'))){own.forEach(walk);continue}
+      let trs=[...c.querySelectorAll('tr')].filter(tr=>tr.closest('table')===c);
+      // A first row holding only a heading is the table's title (Confluence style)
+      if(trs.length&&trs[0].querySelector('h1,h2,h3,h4,h5,h6')&&[...trs[0].children].filter(x=>txt(x)).length===1){walk(trs[0]);trs=trs.slice(1)}
+      const rows=trs.map(tr=>[...tr.children].filter(x=>/^t[dh]$/i.test(x.tagName)).map(x=>cellTxt(x).replace(/\|/g,'/')));
+      const w=Math.max(0,...rows.map(r=>r.length));
+      if(w&&rows.length)B.push(bT(rows.map(r=>{while(r.length<w)r.push('');return r.join(' | ')}).join('\n')));
+      afterToc=false;continue}
+    if(tag==='ul'||tag==='ol'){
+      if(afterToc){B.push(bA('toc'));afterToc=false;continue}
+      const items=[...c.children].filter(x=>x.tagName==='LI').map(txt).filter(Boolean);if(items.length)B.push(bU(items.join('\n')));continue}
+    if(tag==='p'||tag==='pre'){const t=txt(c);if(t){B.push(bP(t));afterToc=false}continue}
+    walk(c)}};
+  walk(doc.body||doc.documentElement);
+  // Swap recognised sections for auto sections
+  const RULES=[[/request\s*(and|&)\s*response/i,'reqres'],[/message volume/i,'volume'],[/data flow|process flow/i,'flow']];
+  B.forEach((b,i)=>{if(b.t!=='h')return;const r=RULES.find(x=>x[0].test(b.x));if(!r)return;
+    for(let j=i+1;j<B.length&&j<=i+3&&B[j].t!=='h';j++){if(B[j].t==='tbl'){B[j]=bA(r[1]);break}}});
+  return{title,blocks:B};
+}
+function importTplFile(inp){
+  const f=inp.files&&inp.files[0];inp.value='';if(!f)return;
+  if(/\.docx$/i.test(f.name)){toast('.docx isn’t supported: save it as Web Page (.htm) and import that');return}
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const raw=String(r.result);let t;
+      if(/\.json$/i.test(f.name))t=tplFromJson(JSON.parse(raw));
+      else{const res=htmlToBlocks(extractHtml(raw));if(!res.blocks.length)throw new Error('No headings, text or tables were found.');
+        t={name:(res.title||f.name.replace(/\.[^.]+$/,'')).slice(0,80)+' (imported)',desc:`Imported from ${f.name}`,title:'{{api.title}}',blocks:res.blocks}}
+      state.tplEdit={idx:null,src:f.name,t};vTpl();toast(`Imported ${t.blocks.length} sections. Review, then save.`);
+    }catch(e){toast('Import failed: '+e.message)}
+  };
+  r.onerror=()=>toast('Couldn’t read the file');
+  r.readAsText(f);
+}
+
+// ================= Sidebar: spec repo + PRs =================
+function drawGit(){
+  const P=store.prs.slice(0,5),repo=safeUrl(store.git.repo);
+  $('#gitbox').innerHTML=`<div class="g-t"><span>⎇ Spec repository</span><i class="g-ok">simulated</i></div>
+  <label class="sr" for="gr">Spec repository URL</label><input id="gr" value="${esc(store.git.repo)}" onchange="setGit('repo',this)">
+  <label class="sr" for="gb">Base branch</label><input id="gb" value="${esc(store.git.branch)}" onchange="setGit('branch',this)">
+  <div class="g-err" id="gerr"></div>
+  ${repo?`<a class="g-open" href="${esc(repo)}" target="_blank" rel="noopener noreferrer">Open repo ↗</a>`:''}
+  <div class="g-t" style="margin-top:14px"><span>Pull requests</span></div>
+  ${P.length?P.map(p=>`<button class="g-f" onclick="showDoc(${idxById(p.apiId)})"><span>#${p.n} ${esc(p.title)}</span><code>open</code></button>`).join(''):'<div class="g-e">APIs you create or extend are proposed here as pull requests.</div>'}`;
+}
+function setGit(k,el){
+  const v=el.value.trim();
+  if(k==='repo'&&!safeUrl(v)){$('#gerr').textContent='Use an https:// URL.';el.value=store.git.repo;return}
+  if(!v){el.value=store.git[k];return}
+  store.git[k]=v;save();drawGit();
+  const f=document.getElementById(k==='repo'?'r':'br');if(f){f.value=v;livePrev()}
+}
+function resetDemo(b){
+  if(b.dataset.c){const sk=store.skin,mo=store.mode;store=withTpls(fresh());store.skin=sk;store.mode=mo;save();state=initState();b.dataset.c='';b.textContent='↺ Reset demo data';endTour();render();toast('Demo data reset')}
+  else{b.dataset.c='1';b.textContent='Click again to confirm';setTimeout(()=>{b.dataset.c='';b.textContent='↺ Reset demo data'},3000)}
+}
+
+// ================= Guided demo =================
+let tour=null;
+const TOUR=[
+  {t:'Reuse-first in about a minute. This tour drives the real screens with sample data. Use Next to move on.',run:()=>go('home')},
+  {t:'A team needs the inference backend. Before building anything, they check the catalog.',run:()=>{state.dmode='match';state.query='https://ml.internal.contoso.com/inference';go('discovery');search()}},
+  {t:'Exact backend match (100%). Instead of building a new API, they add the one operation that’s missing.',run:()=>{finishScan();const i=idxByName('Model Inference API'),a=store.apis[i];const p=a.ops.some(o=>o[1]==='/predict/batch')?'/predict/async':'/predict/batch';openReuse(i,[['POST',p,'Batch predictions']])}},
+  {t:'A pull request is opened on the spec repo for the owning team to review. Nothing goes straight to main.',run:()=>commitOps(idxByName('Model Inference API'))},
+  {t:"Advanced filter: search on several fields at once, such as OPERATION_ID = 'TEST123' OR BACKEND = '%ZETA%'.",run:()=>{state.dmode='filter';go('discovery');setQ("OPERATION_ID = 'TEST123' OR BACKEND = '%ZETA%'")}},
+  {t:'A different service on a shared host scores 50%, a possible overlap, instead of a false 100% match.',run:()=>{state.dmode='match';state.query='https://nlp.contoso.com/sentiment';go('discovery');search()}},
+  {t:'Docs show owner, lifecycle, auth and a valid OpenAPI spec. Users pick a TDD template and download a pre-filled Word document.',run:()=>showDoc(idxByName('Model Inference API'))},
+  {t:'Admins manage TDD templates: import a Word or Confluence page, edit sections and placeholders, and choose the default.',run:()=>{if(state.tourRole==null)state.tourRole=store.role;store.role='admin';state.tplEdit=null;go('tpl')}},
+  {t:'Architecture maps each simulated step to production systems and governance.',run:()=>{if(state.tourRole!=null){store.role=state.tourRole;state.tourRole=null}go('arch')}},
+  {t:'Metrics update as teams reuse instead of rebuilding. That’s the tour.',run:()=>go('home')}
+];
+function drawTour(){
+  const el=$('#tour');document.body.classList.toggle('touring',tour!==null);
+  if(tour===null){el.hidden=true;return}
+  el.hidden=false;const last=tour===TOUR.length-1;
+  el.innerHTML=`<div class="t-n">Guided demo · ${tour+1} / ${TOUR.length}</div><p>${esc(TOUR[tour].t)}</p><div class="t-b"><button class="btn ghost sm" onclick="endTour()">Exit</button><button class="btn sm" onclick="nextTour()">${last?'Finish':'Next →'}</button></div>`;
+}
+function startTour(){tour=0;TOUR[0].run();drawTour()}
+function nextTour(){if(tour===null)return;if(tour>=TOUR.length-1)return endTour();tour++;TOUR[tour].run();drawTour()}
+function endTour(){tour=null;drawTour();if(state.tourRole!=null){store.role=state.tourRole;state.tourRole=null;render()}}
+
+render();
+</script>
+</body>
+</html>
