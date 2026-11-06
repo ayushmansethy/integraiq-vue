@@ -11,7 +11,7 @@ const metrics=computed(()=>[{n:store.apis.length,label:'Catalog APIs'},{n:store.
 const results=computed<Match[]>(()=>analyzed.value?discover(store.apis,requirement.value,true).slice(0,5):[])
 const recommendation=computed(()=>{const score=results.value[0]?.score??0;return score>=68?'Reuse candidate':score>=35?'Review / possibly extend':'No strong reuse candidate'})
 const intent=computed(()=>tokens(requirement.value).slice(0,3).join(', ')||'Not identified')
-function analyze(){if(requirement.value.trim().length<5)return;store.metrics.searches++;analyzed.value=true;selected.value=null}
+function analyze(){if(requirement.value.trim().length<5)return;sessionStorage.setItem('integraiq-requirement',requirement.value);router.push('/discovery')}
 function explain(r:Match){const q=tokens(requirement.value),doc=tokens(`${r.api.desc} ${r.api.ops.map(o=>o.join(' ')).join(' ')}`);return{gaps:q.filter(t=>!doc.includes(t)).slice(0,5),related:r.api.ops.filter(o=>tokens(o[1]+' '+o[2]).some(t=>q.includes(t))).slice(0,3)}}
 function openReuse(api:Api){selected.value=api;draftOperations.value=[['GET','/','','']]}
 function addOperationRow(){draftOperations.value.push(['GET','/','',''])}
