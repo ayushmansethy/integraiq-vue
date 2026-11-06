@@ -5,14 +5,14 @@ import {useCatalog} from '../stores/catalog'
 import ApiOperations from '../components/ApiOperations.vue'
 import {generateOpenApi,validateApi,specFilename} from '../services/openapi'
 import {download} from '../utils/common'
-import type {Api} from '../types'
+import type {Api, PullRequest} from '../types'
 const s=useCatalog(),route=useRoute(),router=useRouter(),editing=ref(false)
 const blank=():Api=>({id:`api-${crypto.randomUUID()}`,name:'',version:'v1',backend:'',suffix:'',team:'',contact:'',vault:'',codeRepo:'',status:'beta',auth:'oauth',desc:'',ops:[['GET','/health','Service health']],origin:'created',consumers:0})
-const form=reactive<Api>(blank()),justification=ref(''),showErrors=ref(false)
+const form=reactive<Api>(blank()),justification=ref(''),showErrors=ref(false),lastPr=ref<PullRequest|null>(null),lastSavedId=ref('')
 const errors=computed(()=>validateApi(form,s.apis))
 const duplicateNames=computed(()=>s.apis.filter(a=>a.id!==form.id&&(a.backend===form.backend&&form.backend||a.name.toLowerCase()===form.name.toLowerCase()&&!!form.name)).slice(0,5))
 const preview=computed(()=>generateOpenApi(form))
-function save(){showErrors.value=true;if(errors.value.length)return;if(duplicateNames.value.length&&!justification.value.trim()){window.alert('Explain why an existing backend/API is insufficient before creating a duplicate.');return}const api=structuredClone({...form,specFile:`apis/${form.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}/${form.version}/openapi.yaml`});if(editing.value){s.updateApi(api);s.metrics.opsAdded++}else{s.addApi(api);if(duplicateNames.value.length)s.metrics.createdDespite++}router.push({path:'/docs',query:{id:api.id}})}
+function save(){showErrors.value=true;if(errors.value.length)return;if(duplicateNames.value.length&&!justification.value.trim()){window.alert('Explain why an existing backend/API is insufficient before creating a duplicate.');return}const api=structuredClone({...form,ops:form.ops.map(o=>[...o] as Api['ops'][number]),specFile:`apis/${form.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}/${form.version}/openapi.yaml`});lastPr.value=editing.value?s.updateApi(api):s.addApi(api);lastSavedId.value=api.id;if(editing.value)s.metrics.opsAdded++;else if(duplicateNames.value.length)s.metrics.createdDespite++;router.push({path:'/docs',query:{id:api.id}})}
 function useExisting(id:string){router.push({path:'/docs',query:{id}})}
 onMounted(()=>{const id=String(route.query.extend||'');const existing=s.apis.find(a=>a.id===id);if(existing){Object.assign(form,structuredClone(existing));editing.value=true;return}const requirement=String(route.query.requirement||'').trim();if(requirement){const words=requirement.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean).slice(-3),slug=words.join('-')||'integration-resource',title=words.map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ')+' API';Object.assign(form,{name:title,desc:requirement,suffix:'/api/'+slug+'/v1',status:'beta',auth:'key',ops:[['GET','/'+slug+'/{id}','Retrieve '+words.join(' ')] ]})}})
 </script>

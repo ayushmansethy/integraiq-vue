@@ -9,9 +9,9 @@ export const useCatalog=defineStore('catalog',()=>{
  const initial=load(),apis=ref<Api[]>(initial.apis),metrics=ref<Metrics>(initial.metrics),prs=ref<PullRequest[]>(initial.prs),settings=ref<Settings>(initial.settings),templates=ref<Template[]>(initial.templates)
  watch([apis,metrics,prs,settings,templates],()=>localStorage.setItem(KEY,JSON.stringify({apis:apis.value,metrics:metrics.value,prs:prs.value,settings:settings.value,templates:templates.value})),{deep:true})
  const operationCount=computed(()=>apis.value.reduce((n,a)=>n+a.ops.length,0))
- function addApi(api:Api){apis.value.push(api);metrics.value.created++; createPR(api,'create')}
- function updateApi(api:Api){const i=apis.value.findIndex(a=>a.id===api.id);if(i>=0)apis.value[i]=structuredClone(api);createPR(api,'update')}
- function createPR(api:Api,kind:string){const id=101+prs.value.length;prs.value.unshift({id,title:`${kind}: ${api.name} ${api.version}`,apiId:api.id,kind,date:new Date().toISOString(),branch:`feature/${kind}-${api.id}`})}
+ function addApi(api:Api){apis.value.push(api);metrics.value.created++;return createPR(api,'create')}
+ function updateApi(api:Api){const i=apis.value.findIndex(a=>a.id===api.id);if(i>=0)apis.value[i]=structuredClone(api);return createPR(api,'update')}
+ function createPR(api:Api,kind:string){const id=101+prs.value.length,sha=crypto.randomUUID().replace(/-/g,'').slice(0,8),file=api.specFile||`apis/${api.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}/${api.version}/openapi.yaml`,pr={id,title:`${kind==='update'?'Update':'Add'} ${api.name} ${api.version}`,apiId:api.id,kind,date:new Date().toISOString(),branch:`${kind}/${api.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}-${api.version}`,file,sha,reviewers:`${api.team} + API governance`};prs.value.unshift(pr);return pr}
  function recordReuse(){metrics.value.reuse++}
  function reset(){const d=defaults();apis.value=d.apis;metrics.value=d.metrics;prs.value=d.prs;settings.value=d.settings;templates.value=d.templates}
  return {apis,metrics,prs,settings,templates,operationCount,addApi,updateApi,createPR,recordReuse,reset}

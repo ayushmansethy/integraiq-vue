@@ -1,26 +1,31 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue'
+import {computed, ref, inject} from 'vue'
 import {useRouter} from 'vue-router'
 import {useCatalog} from '../stores/catalog'
 import {discover, tokens} from '../services/discovery'
-import type {Api, Match, Operation} from '../types'
+import {validateOperations} from '../services/openapi'
+import type {Api, Match, Operation, PullRequest} from '../types'
+const startGuidedDemo=inject<()=>void>('startGuidedDemo')
 const store=useCatalog(),router=useRouter(),requirement=ref(''),analyzed=ref(false),selected=ref<Api|null>(null)
 const newOperation=ref<Operation>(['GET','/','',''])
 const draftOperations=ref<Operation[]>([])
+const prError=ref(''),lastPr=ref<PullRequest|null>(null),lastAdded=ref<Operation[]>([])
 const metrics=computed(()=>[{n:store.apis.length,label:'Catalog APIs'},{n:store.operationCount,label:'Total operations'},{n:store.metrics.searches,label:'Discovery searches'},{n:store.metrics.reuse,label:'Reused APIs'},{n:store.metrics.created,label:'New APIs created'},{n:Math.round(store.metrics.reuse*store.settings.devDays*10)/10,label:'Estimated days saved'}])
 const results=computed<Match[]>(()=>analyzed.value?discover(store.apis,requirement.value,true).slice(0,5):[])
 const recommendation=computed(()=>{const score=results.value[0]?.score??0;return score>=68?'Reuse candidate':score>=35?'Review / possibly extend':'No strong reuse candidate'})
 const intent=computed(()=>tokens(requirement.value).slice(0,3).join(', ')||'Not identified')
 function analyze(){if(requirement.value.trim().length<5)return;sessionStorage.setItem('integraiq-requirement',requirement.value);router.push('/discovery')}
 function explain(r:Match){const q=tokens(requirement.value),doc=tokens(`${r.api.desc} ${r.api.ops.map(o=>o.join(' ')).join(' ')}`);return{gaps:q.filter(t=>!doc.includes(t)).slice(0,5),related:r.api.ops.filter(o=>tokens(o[1]+' '+o[2]).some(t=>q.includes(t))).slice(0,3)}}
-function openReuse(api:Api){selected.value=api;draftOperations.value=[['GET','/','','']]}
+function openReuse(api:Api){selected.value=api;draftOperations.value=[['GET','/','','']];prError.value='';lastPr.value=null;lastAdded.value=[]}
 function addOperationRow(){draftOperations.value.push(['GET','/','',''])}
-function commitOperations(){if(!selected.value)return;const add=draftOperations.value.filter(o=>o[1].trim());if(!add.length)return;const api=structuredClone(selected.value);api.ops.push(...add.map(o=>[...o] as Operation));store.updateApi(api);store.recordReuse();selected.value=api;draftOperations.value=[]}
+function commitOperations(){if(!selected.value)return;prError.value='';lastPr.value=null;lastAdded.value=[];const add=draftOperations.value.filter(o=>o[1].trim()).map(o=>[o[0],o[1].trim(),o[2].trim()||'Operation',o[3]?.trim()] as Operation);if(!add.length){prError.value='Add at least one operation with a path.';return}const duplicate=add.find(o=>selected.value!.ops.some(x=>x[0]===o[0]&&x[1]===o[1]));if(duplicate){prError.value=`${duplicate[0]} ${duplicate[1]} already exists in this API.`;return}const errors=validateOperations([...selected.value.ops,...add]);if(errors.length){prError.value=errors[0];return}const api={...selected.value,ops:selected.value.ops.map(o=>[...o] as Operation)};api.ops.push(...add.map(o=>[...o] as Operation));lastPr.value=store.updateApi(api);lastAdded.value=add;store.recordReuse();store.metrics.opsAdded+=add.length;selected.value=api;draftOperations.value=[]}
 function useAsIs(api:Api){store.recordReuse();selected.value=null;router.push({path:'/docs',query:{id:api.id}})}
 function reset(){store.reset();analyzed.value=false;requirement.value='';selected.value=null}
 </script>
 <template>
-<div class="hd"><div><h1>Integration API Accelerator &amp; Reuse Advisor</h1><p class="sub">Discover existing API capabilities and avoid duplicate integrations.</p></div><button class="btn" @click="router.push('/discovery')">Start discovery →</button></div>
+<div v-if="lastPr" class="card ai-good"><b>✓ Pull request #{{lastPr.id}} opened (simulated)</b><p class="small"><code>{{store.settings.repo}}</code> · <code>{{lastPr.branch}}</code> → <code>{{store.settings.branch}}</code></p><p class="small">commit <code>{{lastPr.sha}}</code> · update <code>{{lastPr.file}}</code> · reviewers: {{lastPr.reviewers}}</p><button class="btn sm" @click="router.push({path:'/docs',query:{id:selected?.id}})">Open documentation</button></div>
+<div v-if="prError" class="err" role="alert">{{prError}}</div>
+<div class="hd"><div><h1>Integration API Accelerator &amp; Reuse Advisor</h1><p class="sub">Discover existing API capabilities and avoid duplicate integrations.</p></div><div class="actions"><button class="btn ghost" @click="startGuidedDemo?.()">▶ Guided demo</button><button class="btn" @click="router.push('/discovery')">Start discovery →</button></div></div>
 <div class="quote"><div class="q-t">“Discover first. Reuse always. Build only what’s missing.”</div><div class="q-s">One integration catalog for reusable services, technical specifications and governance.</div></div>
 <section class="card ai-card"><div class="ai-head"><span class="ai-orb">✦</span><div><h2 style="margin:0">IntegraIQ Assistant</h2><div class="muted small">Describe the capability in plain English instead of knowing an API name or URL.</div></div><span class="ai-chip">Semantic discovery</span></div><label for="home-requirement">Business requirement</label><textarea id="home-requirement" v-model="requirement" rows="3" placeholder="e.g. find me customer APIs" @keydown.ctrl.enter="analyze"/><div class="ai-actions"><button class="btn" :disabled="requirement.trim().length<5" @click="analyze">✦ Understand &amp; find APIs</button><button class="btn ghost sm" @click="requirement='Generate vector embeddings for text and documents so that similar content can be found.'">Try embeddings example</button><button class="btn ghost sm" @click="requirement='Summarize long documents and retrieve the summary for a submitted document.'">Try summarization example</button></div><p class="ai-note">The current standalone demo uses explainable local relevance scoring. Connect the optional backend endpoint for Azure OpenAI and embedding-based semantic search.</p>
 <div v-if="analyzed" class="ai-results"><div class="ai-result"><div class="ai-result-top"><b>Requirement analysis</b><span class="ai-chip">Local demo scoring</span></div><div class="ai-grid"><div class="ai-kv"><b>Intent</b>{{intent}}</div><div class="ai-kv"><b>Catalog candidates</b>{{results.length}}</div><div class="ai-kv"><b>Recommendation</b>{{recommendation}}</div></div><p>{{recommendation==='Reuse candidate'?'An existing API appears to cover important parts of this requirement. Validate operation-level coverage with the owning team.':recommendation==='Review / possibly extend'?'Some related capabilities exist. Check missing operations and ownership before deciding.':'No sufficiently relevant API was found in this sample catalog. A new API design may be appropriate after confirming the search scope.'}}</p></div><div v-if="!results.length" class="ai-warn">No relevant API was identified in the current sample catalog. Confirm that the catalog contains the relevant domain APIs before creating a new one.</div>
